@@ -6,44 +6,100 @@ use Illuminate\Http\Request;
 use App\Models\User;
 class UserController extends Controller
 {
+    public function index(){
+        $users = User::get();
+        return view('funcionario',['users' => $users]);
+    }
     public function cadastroUser(){
-        return view('users');
+        return view('register_users');
     }
     public function cadastrarUser(Request $request){
+        
 
-        $nome = $request->nome;
-        $email1 = $request->email1;
-        $email2 = $request->email2;
-        $senha1 = $request->password1; 
-        $senha2 = $request->password2;
-        $permissao = $request->permissao;
+        if($request->permissao != null){
+            $permissao = $request->permissao;
+        }else{
+            $permissao = null;
+        }
+        
 
 if($request != null){
-        if(($request->nome == null) or ($request->email1 == null) or ($request->email2 == null) or ($request->password1 == null) or ($request->password2 == null) or ($request->permissao == null)){
+        if(($request->name == null) or ($request->email == null) or ($request->password1 == null) or ($request->password2 == null)){
             //se algum dos campos tiver em branco, tratar o erro
             echo "campos vazios";
         }else{
             //caso nenhum campo esteja em branco
-            if($email1 == $email2){
-                //emails iguais
-                if($senha1 == $senha2){
+                if($request->password1 == $request->password2){
+                    $hash_senha = bcrypt($request->password1);
                     User::create([
-                        'name'=>$request->nome,
-                        'email'=>$request->email1,
-                        'password'=>$request->password1,
-                        'permissao'=>$request->permissao,
+                        'name'=>$request->name,
+                        'email'=>$request->email,
+                        'password'=>$hash_senha,
+                        'permissao'=>$permissao,
                     ]);
-                    echo "cadastrado com sucesso";
+                    return view('/funcionario');
                 }else{
-                    echo "erro: senhas não iguais";
-                    //senhas não são iguais
+                    return view('/register_users');
                 }
-            }else{
-                echo "erro: emails não iguais";
-                //emails não estão iguais
-                return view('users');
-            }
+            
         }
     }
+}
+
+public function show($id){
+    $users = User::findOrFail($id);
+    return view('change_users', ['users' => $users]);
+}
+
+public function update(Request $request, $id){
+    $user = User::findOrFail($id);
+
+    if($request->permissao != null){
+        $permissao = $request->permissao;
+    }else{
+        $permissao = null;
+    }
+
+    
+    if($request->password1 == null){
+
+        $user->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'permissao'=>$permissao,
+        ]);
+        return view('funcionario');
+
+    }elseif(($request->password1 != null) && ($request->password1 == $request->password2)){
+
+        $hash_senha = bcrypt($request->password1);
+        $user->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$hash_senha,
+            'permissao'=>$permissao,
+        ]);
+
+        $users = User::get();
+        return view('funcionario');
+
+    }else{
+        return view('/change_users');
+    }
+    
+    
+    
+}
+
+public function delete($id){
+    $usuario = User::findOrFail($id);
+    return view('delete_user', ['users' => $usuario]);
+}
+
+public function destroy($id){
+    $user = User::findOrFail($id);
+    $user->delete();
+    $users = User::get();
+    return view('funcionario',['users' => $users]);
 }
 }

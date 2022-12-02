@@ -24,6 +24,39 @@
     <label for="">quantidade</label><br>
     <input type="text" name="quantidade"><br>
 
+
+
+    <label for="">quantidade máxima</label><br>
+    <input type="text" name="quant_max"><br>
+
+    <label for="">quantidade mínima</label><br>
+    <input type="text" name="quant_min"><br>
+
+    <label for="">referência</label><br>
+    <input type="text" name="referencia"><br>
+
+    <label for="">marca</label><br>
+    <input type="text" name="marca"><br>
+    
+    <label for="">grupo</label><br>
+    <input type="text" name="grupo"><br>
+
+    <label for="">fornecedor</label><br>
+    <input type="text" name="fornecedor"><br>
+
+    <label for="">porcentagem</label><br>
+    <input type="text" name="porcentagem"><br>
+
+    <label for="">imp_federal</label><br>
+    <input type="text" name="imp_federal"><br>
+
+    <label for="">icms</label><br>
+    <input type="text" name="icms"><br>
+
+    <label for="">lucro</label><br>
+    <input type="text" name="lucro"><br>
+
+
     <label for="">Código de barra</label><br>
     <input type="text" name="codigo"><br>
 

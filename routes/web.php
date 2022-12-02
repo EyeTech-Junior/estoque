@@ -33,12 +33,22 @@ Route::get('/products', [ProductsController::class, 'cadastroPro']);
 Route::post('/products', [ProductsController::class, 'cadastrarPro'])->name('produto');
 
 //rota do cadastro de usuarios
-Route::get('/users', [UserController::class, 'cadastroUser']);
-Route::post('/users', [UserController::class, 'cadastrarUser'])->name('usuario');
+Route::get('/register_users', [UserController::class, 'cadastroUser']);
+Route::post('/register_users', [UserController::class, 'cadastrarUser'])->name('usuario');
 
-Route::get('/funcionario', function () {
-return view('funcionario');
-});
+
+//rota de alterar usuario
+Route::get('/change_users/{id}',[UserController::class, 'show']);
+Route::post('/change_users/{id}',[UserController::class, 'update'])->name('alterar');
+
+//rota de excluir usuario
+Route::get('/delete_user/{id}',[UserController::class, 'delete']);
+Route::post('/delete_user/{id}',[UserController::class, 'destroy'])->name('deletar');
+
+Route::get('/funcionario',[UserController::class, 'index']);
+
+
+Route::get('/estoque',[ProductsController::class, 'showProducts']);
 
 Route::middleware([
     'auth:sanctum',
@@ -46,6 +56,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('menu');
     })->name('dashboard');
 });

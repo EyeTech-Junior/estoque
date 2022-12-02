@@ -20,6 +20,18 @@ return new class extends Migration
             $table->decimal('preco_venda', 19, 2);
             $table->string('unidade'); 
             $table->string('quantidade');
+
+            $table->string('quant_max');
+            $table->string('quant_min');
+            $table->string('referencia');
+            $table->string('marca');
+            $table->string('grupo');
+            $table->string('fornecedor');
+            $table->string('porcentagem');
+            $table->string('imp_federal');
+            $table->string('icms');
+            $table->string('lucro');
+
             $table->string('codigo');
             $table->string('nsc');
             $table->string('categoria');

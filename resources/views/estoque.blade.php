@@ -1,12 +1,13 @@
 @extends('layouts.main')
-@section('title','Lista Funcionário')
+@section('title','Lista de produtos')
 @section('content')
 <h1>Estoque</h1>
 <table class="table table-dark table-sm table-bordered">
     <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">====</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
           <th scope="col">Nome</th>
           <th scope="col">Preço custo</th>
           <th scope="col">Preço venda</th>
@@ -31,8 +32,9 @@
         @foreach ($produtos as $produto)
         <tr>
             <th scope="row">{{$loop->index}}</th>
-            <td><a href="">editar</a></td>
-            <td>{{$produto->name}}</td>
+            <td><a href="/change_products/{{$produto->id}}">editar</a></td>
+            <td><a href="/delete_product/{{$produto->id}}">apagar</a></td>
+            <td>{{$produto->nome}}</td>
             <td>{{$produto->preco_custo}}</td>
             <td>{{$produto->preco_venda}}</td>
             <td>{{$produto->unidade}}</td>

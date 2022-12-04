@@ -45,10 +45,19 @@ Route::post('/change_users/{id}',[UserController::class, 'update'])->name('alter
 Route::get('/delete_user/{id}',[UserController::class, 'delete']);
 Route::post('/delete_user/{id}',[UserController::class, 'destroy'])->name('deletar');
 
+//rota de excluir produto
+Route::get('/delete_product/{id}',[ProductsController::class, 'delete_product']);
+Route::post('/delete_product/{id}',[ProductsController::class, 'destroy_product'])->name('apagar');
+
+//rota de alterar produto
+Route::get('/change_products/{id}',[ProductsController::class, 'show_product']);
+Route::post('/change_products/{id}',[ProductsController::class, 'update_product'])->name('mudar');
+
 Route::get('/funcionario',[UserController::class, 'index']);
 
-
 Route::get('/estoque',[ProductsController::class, 'showProducts']);
+
+
 
 Route::middleware([
     'auth:sanctum',

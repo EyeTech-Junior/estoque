@@ -1,12 +1,12 @@
 @extends('layouts.main')
-@section('title','alterar usuário')
+@section('title','alterar produto')
 @section('content')
 <h1>Alterar Cadastro</h1>
 <form action="{{ route('mudar', ['id' => $products->id])}}" method="POST">
     @csrf
 
     <label for="">Nome do produto</label><br>
-    <input type="text" name="nome" value="{{$products->name}}"><br>
+    <input type="text" name="nome" value="{{$products->nome}}"><br>
     
     <label for="">preço de custo</label><br>
     <input type="text" name="pcusto" value="{{$products->preco_custo}}"><br>

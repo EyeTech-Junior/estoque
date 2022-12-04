@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 class UserController extends Controller
 {
+    //exibe as informações em lista
     public function index(){
         $users = User::get();
         return view('funcionario',['users' => $users]);
@@ -13,6 +14,8 @@ class UserController extends Controller
     public function cadastroUser(){
         return view('register_users');
     }
+
+    //cadastra funcionários
     public function cadastrarUser(Request $request){
         
 
@@ -37,7 +40,8 @@ if($request != null){
                         'password'=>$hash_senha,
                         'permissao'=>$permissao,
                     ]);
-                    return view('/funcionario');
+                    $users = User::get();
+                    return view('funcionario',['users' => $users]);
                 }else{
                     return view('/register_users');
                 }
@@ -45,12 +49,13 @@ if($request != null){
         }
     }
 }
-
+//exibe as informações do usuario para ser alterado
 public function show($id){
     $users = User::findOrFail($id);
     return view('change_users', ['users' => $users]);
 }
 
+//faz a atualização dos usuários
 public function update(Request $request, $id){
     $user = User::findOrFail($id);
 
@@ -68,7 +73,8 @@ public function update(Request $request, $id){
             'email'=>$request->email,
             'permissao'=>$permissao,
         ]);
-        return view('funcionario');
+        $users = User::get();
+        return view('funcionario',['users' => $users]);
 
     }elseif(($request->password1 != null) && ($request->password1 == $request->password2)){
 
@@ -81,25 +87,29 @@ public function update(Request $request, $id){
         ]);
 
         $users = User::get();
-        return view('funcionario');
+        return view('funcionario',['users' => $users]);
 
     }else{
-        return view('/change_users');
+        $users = User::findOrFail($id);
+        return view('change_users', ['users' => $users]);
     }
     
     
     
 }
 
+//leva para uma página de confirmação
 public function delete($id){
     $usuario = User::findOrFail($id);
     return view('delete_user', ['users' => $usuario]);
 }
 
+//apaga as informações depois de confirmar
 public function destroy($id){
     $user = User::findOrFail($id);
     $user->delete();
     $users = User::get();
     return view('funcionario',['users' => $users]);
+    
 }
 }

@@ -36,15 +36,17 @@ class ProductsController extends Controller
         'nsc' => $request->nsc,
         'categoria' => $request->categoria,
         ]);
-        return "cadastrado com sucesso";
+        
+        $produtos = Produto::get();
+        return view('estoque',['produtos' => $produtos]);
     }
 
-    public function show($id){
-        $produto = Produto::findOrFail($id);
-        return view('products',['produto' => $produto]);
+    public function show_product($id){
+        $products = Produto::findOrFail($id);
+        return view('change_products',['products' => $products]);
     }
     
-    public function update(Request $request, $id){
+    public function update_product(Request $request, $id){
         $products = Produto::findOrFail($id);
 
         if($request != null){
@@ -70,25 +72,27 @@ class ProductsController extends Controller
                 'categoria' => $request->categoria,
                 ]);
 
-            return view('/estoque');
+                $produtos = Produto::get();
+                return view('estoque',['produtos' => $produtos]);
     
         }else{
             return view('/change_products');
-        }
-        
-        
-        
+        }  
     }
+
+//leva para uma página de confirmação
+public function delete_product($id){
+    $products = Produto::findOrFail($id);
+    return view('delete_product', ['products' => $products]);
+}
+
+//apaga as informações depois de confirmar
+public function destroy_product($id){
+    $products = Produto::findOrFail($id);
+    $products->delete();
+    $produtos = Produto::get();
+    return view('estoque',['produtos' => $produtos]);
     
-    public function exibir($id){
-        $products = Produto::findOrFail($id);
-        return view('delete_product', ['products' => $products]);
-    }
-    
-    public function apagar($id){
-        $products = Produto::findOrFail($id);
-        $products->delete();
-        return view('funcionario');
-    }
+}
 
 }

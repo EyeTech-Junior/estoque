@@ -15,26 +15,26 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome'); 
-            $table->decimal('preco_custo', 19, 2);
-            $table->decimal('preco_venda', 19, 2);
-            $table->string('unidade'); 
-            $table->string('quantidade');
+            $table->string('nome')->nullable(); 
+            $table->decimal('preco_custo', 19, 2)->nullable();
+            $table->decimal('preco_venda', 19, 2)->nullable();
+            $table->string('unidade')->nullable(); 
+            $table->string('quantidade')->nullable();
 
-            $table->string('quant_max');
-            $table->string('quant_min');
-            $table->string('referencia');
-            $table->string('marca');
-            $table->string('grupo');
-            $table->string('fornecedor');
-            $table->string('porcentagem');
-            $table->string('imp_federal');
-            $table->string('icms');
-            $table->string('lucro');
+            $table->string('quant_max')->nullable();
+            $table->string('quant_min')->nullable();
+            $table->string('referencia')->nullable();
+            $table->string('marca')->nullable();
+            $table->string('grupo')->nullable();
+            $table->string('fornecedor')->nullable();
+            $table->string('porcentagem')->nullable();
+            $table->string('imp_federal')->nullable();
+            $table->string('icms')->nullable();
+            $table->string('lucro')->nullable();
 
-            $table->string('codigo');
-            $table->string('nsc');
-            $table->string('categoria');
+            $table->string('codigo')->nullable();
+            $table->string('nsc')->nullable();
+            $table->string('categoria')->nullable();
             $table->timestamps();
         });
     }

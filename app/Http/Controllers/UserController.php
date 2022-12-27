@@ -2,79 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Symfony\Component\VarDumper\VarDumper;
+
 class UserController extends Controller
 {
-    //exibe as informações em lista
-    public function index(){
-        $users = User::get();
-        return view('funcionario',['users' => $users]);
-    }
-    public function cadastroUser(){
-        return view('register_users');
+    //chama página de cadastro
+    public function index()
+    {
+        return view('user_register');
     }
 
-    //cadastra funcionários
-    public function cadastrarUser(Request $request){
-        
-
-        if($request->permissao != null){
-            $permissao = $request->permissao;
-        }else{
-            $permissao = null;
-        }
-        
-
-if($request != null){
-        if(($request->name == null) or ($request->email == null) or ($request->password1 == null) or ($request->password2 == null)){
-            //se algum dos campos tiver em branco, tratar o erro
-            echo "campos vazios";
-        }else{
-            //caso nenhum campo esteja em branco
-                if($request->password1 == $request->password2){
-                    $hash_senha = bcrypt($request->password1);
-                    User::create([
-                        'name'=>$request->name,
-                        'email'=>$request->email,
-                        'password'=>$hash_senha,
-                        'permissao'=>$permissao,
-                    ]);
-                    $users = User::get();
-                    return view('funcionario',['users' => $users]);
-                }else{
-                    return view('/register_users');
-                }
-            
-        }
-    }
-}
-//exibe as informações do usuario para ser alterado
-public function show($id){
-    $users = User::findOrFail($id);
-    return view('change_users', ['users' => $users]);
-}
-
-//faz a atualização dos usuários
-public function update(Request $request, $id){
-    $user = User::findOrFail($id);
-
-    if($request->permissao != null){
-        $permissao = $request->permissao;
-    }else{
-        $permissao = null;
+    public function create(Request $request)
+    {
+    
     }
 
+    //cadastra usuário no banco
+    public function store(Request $request)
+    {
+
+                    if($request->password1 == $request->password2){
+                        $hash_senha = bcrypt($request->password1);
+                        User::create([
+                            'name'=>$request->name,
+                            'email'=>$request->email,
+                            'password'=>$hash_senha,
+                            'phone'=>$request->telefone,
+                            'profile'=>$request->permissao,
+                        ]);
+                        return redirect('/user_list');
+                    }else{
+                        return redirect('/404');
+                    }
+    }
+
+
+    public function show()
+    {
+        $usuarios = User::get();
+        return view('user_list',['usuarios' => $usuarios]);
+    }
+
+    //envia informações para alterar
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user_change',['user' => $user]);
+    }
+
+    //altera informações no banco
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
     
     if($request->password1 == null){
 
         $user->update([
             'name'=>$request->name,
             'email'=>$request->email,
-            'permissao'=>$permissao,
+            'phone'=>$request->telefone,
+            'profile'=>$request->permissao,
         ]);
         $users = User::get();
-        return view('funcionario',['users' => $users]);
+        return redirect('/user_list');
 
     }elseif(($request->password1 != null) && ($request->password1 == $request->password2)){
 
@@ -83,33 +75,29 @@ public function update(Request $request, $id){
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>$hash_senha,
-            'permissao'=>$permissao,
+            'phone'=>$request->telefone,
+            'profile'=>$request->permissao,
         ]);
 
-        $users = User::get();
-        return view('funcionario',['users' => $users]);
+        return redirect('/user_list');
 
     }else{
-        $users = User::findOrFail($id);
-        return view('change_users', ['users' => $users]);
+        return redirect('/404');
     }
-    
-    
-    
-}
+    }
 
-//leva para uma página de confirmação
-public function delete($id){
-    $usuario = User::findOrFail($id);
-    return view('delete_user', ['users' => $usuario]);
-}
-
-//apaga as informações depois de confirmar
-public function destroy($id){
-    $user = User::findOrFail($id);
-    $user->delete();
-    $users = User::get();
-    return view('funcionario',['users' => $users]);
+   
+    //redireciona para a página de confirmação
+     public function delete($id){
+        $item = User::findOrFail($id);
+        return view('user_delete', ['item' => $item]);
+    }
+    //apaga do banco a informação
+    public function destroy($id){
+        dd($id);
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect('/user_list');
     
-}
+    }
 }

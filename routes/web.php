@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DenominationController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CartController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,59 +20,94 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\LoginController;
+Route::get('/home', function () {
+    return view('home');
+});
 
 Route::get('/', function () {
-return view('auth/login');
+    return view('home');
 });
 
-Route::get('/welcome', [LoginController::class, 'login']);
-Route::post('/welcome', [LoginController::class, 'logar'])->name('registrar');
-
-
-Route::get('/menu', function () {
-return view('menu'/*,['id' => $id]*/);
+Route::get('/404', function () {
+    return view('404');
 });
 
-//rotas do cadastro de produtos
-Route::get('/products', [ProductsController::class, 'cadastroPro']);
-Route::post('/products', [ProductsController::class, 'cadastrarPro'])->name('produto');
+//lista de usuários
+Route::get('/user_list',[UserController::class, 'show']);
 
-//rota do cadastro de usuarios
-Route::get('/register_users', [UserController::class, 'cadastroUser']);
-Route::post('/register_users', [UserController::class, 'cadastrarUser'])->name('usuario');
+//lista de produtos
+Route::get('/product_list',[ProductController::class, 'show']);
 
+//lista de vendas
+Route::get('/sale_list',[SaleController::class, 'show']);
 
-//rota de alterar usuario
-Route::get('/change_users/{id}',[UserController::class, 'show']);
-Route::post('/change_users/{id}',[UserController::class, 'update'])->name('alterar');
+//lista de categorias
+Route::get('/category_list',[CategoryController::class, 'show']);
 
-//rota de excluir usuario
-Route::get('/delete_user/{id}',[UserController::class, 'delete']);
-Route::post('/delete_user/{id}',[UserController::class, 'destroy'])->name('deletar');
+//cadastro de usuários
+Route::get('/user_register', [UserController::class, 'index']);
+Route::post('/user_register', [UserController::class, 'store'])->name('usuario');
 
-//rota de excluir produto
-Route::get('/delete_product/{id}',[ProductsController::class, 'delete_product']);
-Route::post('/delete_product/{id}',[ProductsController::class, 'destroy_product'])->name('apagar');
+//alterar informações de usuário
+Route::get('/user_change/{id}', [UserController::class, 'edit']);
+Route::post('/user_change/{id}', [UserController::class, 'update'])->name('user.change');
 
-//rota de alterar produto
-Route::get('/change_products/{id}',[ProductsController::class, 'show_product']);
-Route::post('/change_products/{id}',[ProductsController::class, 'update_product'])->name('mudar');
+//alterar informações de categoria
+Route::get('/category_change/{id}', [CategoryController::class, 'edit']);
+Route::post('/category_change/{id}', [CategoryController::class, 'update'])->name('category.change');
 
-Route::get('/funcionario',[UserController::class, 'index']);
+//cadastro de categorias
+Route::get('/category_register', [CategoryController::class, 'index']);
+Route::post('/category_register', [CategoryController::class, 'store'])->name('categoria');
 
-Route::get('/estoque',[ProductsController::class, 'showProducts']);
+//alterar informações de produto
+Route::get('/product_change/{id}', [ProductController::class, 'edit']);
+Route::post('/product_change/{id}', [ProductController::class, 'update'])->name('products.change');
 
+//cadastrar produto
+Route::get('/product_register', [ProductController::class, 'index_register']);
+Route::post('/product_register', [ProductController::class, 'store'])->name('produto');
 
+//deletar usuário
+Route::get('/user_delete/{id}', [UserController::class, 'delete']);
+Route::post('/user_delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('menu');
-    })->name('dashboard');
+//deletar categoria
+Route::get('/category_delete/{id}', [CategoryController::class, 'delete']);
+Route::post('/category_delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+//deletar produto
+Route::get('/product_delete/{id}', [ProductController::class, 'delete']);
+Route::post('/product_delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
+Route::get('/sale_register', function () {
+    return view('sale_register');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+
+//Rotas carrinho de compra
+Route::post('remover', [CartController::class, 'removeCart'])->name('cart.remove');
+Route::post('/cart', [ProductController::class, 'produto_busca'])->name('cart.store');
+
+Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
+Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+
+Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+Route::post('troco', [CartController::class, 'cartTroco'])->name('cart.troco');
+//Route::get('/home', [LoginController::class, 'login']);
+//Route::post('/welcome', [LoginController::class, 'logar'])->name('registrar');
+//Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
+//Route::get('/', [ProductController::class, 'productList'])->name('products.list');
+Route::get('/vendas', [SaleController::class, 'index']);
+
+/*
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+*/
+

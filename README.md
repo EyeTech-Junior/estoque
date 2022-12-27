@@ -1,13 +1,3 @@
-## Sistema de gerenciamento de produtos e vendas
-
-Um sistema de gerenciamento de produtos e vendas de artigos relacionados a pesca e sua atividade
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

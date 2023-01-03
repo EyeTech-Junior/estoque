@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Darryldecode\Cart\Facades\CartFacade as Cart;
-use Illuminate\Support\Facades\DB;
+//use Darryldecode\Cart\Facades\CartFacade as Cart;
+//use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -22,38 +22,7 @@ class ProductController extends Controller
     //faz a busca do produto no banco e insere no carrinho
     public function produto_busca(Request $request)
     {
-        $products = DB::table('products')
-                ->where('code', '=', $request->search)
-                ->value('id') ? 
-                $products = DB::table('products')
-                ->where('code', '=', $request->search)
-                ->value('id') :
-                $products = DB::table('products')
-                ->where('name', '=', $request->search)
-                ->value('id') ;
-        $produto = Product::all();
-        $produtos = $produto->find($products);
-        //dd($produtos);
-        $quantity = 1;
-        if($produtos != null){
-            Cart::add([
-                'id' => $produtos->id,
-                'name' => $produtos->name,
-                'price' => $produtos->price,
-                'quantity' => $quantity,
-                'category' => $produtos->category_id,
-                'attributes' => array(
-                    'image' => $produtos->image,
-                    'stock' => $produtos->stock,
-                )
-            ]);
-            session()->flash('successo', 'Produto adicionado !');
-    
-            return redirect()->route('cart.list');
-        }else{
-            return redirect('404');
-        }
-        
+        return view('cart');
     }
 
     public function create(Request $request)
@@ -74,23 +43,16 @@ class ProductController extends Controller
                 'price'=>$request->preco,
                 'stock'=>$request->quantidade,
                 'category_id'=>$request->categoria,
-                //'preco_custo' => $request->pcusto,
-                //'preco_venda' => $request->pvenda,
-                //'unidade' => $request->unidade,
-                //'quantidade' => $request->quantidade,
-                //'quant_max' => $request->quant_max,
-                //'quant_min'=> $request->quant_min,
-                //'referencia' => $request->referencia,
-                //'marca'=> $request->marca,
-                //'grupo' => $request->grupo,
-                //'fornecedor' => $request->fornecedor,
-                //'porcentagem' => $request->porcentagem,
-                //'imp_federal' => $request->imp_federal,
-                //'icms' => $request->icms,
-                //'lucro' => $request->lucro,
-                //'codigo' => $request->codigo,
-                //'nsc' => $request->nsc,
-                //'categoria' => $request->categoria,
+
+                'unity' => $request->unidade,
+                'company'=> $request->marca,
+                'group' => $request->grupo,
+                'provider' => $request->fornecedor,
+                'percentage' => $request->porcentagem,
+                'tax' => $request->imp_federal,
+                'icms' => $request->icms,
+                'codigo' => $request->codigo,
+                'nsc' => $request->nsc,
                 ]);
                 return redirect('/product_list');
         }else{

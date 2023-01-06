@@ -4,7 +4,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Listagem de funcionários</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Listagem de Categorias</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -22,11 +22,11 @@
                     <tr>
                         <td>{{$loop->index}}</td>
                         <td>{{$categoria->name}}</td>
-                        <td><a href="/category_change/{{$categoria->id}}">editar</a></td>
-                        <td><a href="/category_delete/{{$categoria->id}}">apagar</a></td>
+                        <td><a href="/category_change/{{$categoria->id}}"><i class="fas fa-pen"></a></td>
+                        <td><a href="/category_delete/{{$categoria->id}}"><i class="fas fa-trash text-danger"></a></td>
                     </tr>
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>

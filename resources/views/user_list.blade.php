@@ -30,11 +30,11 @@
                         <td>{{$usuario->phone}}</td>
                         <td>{{$usuario->email}}</td>
                         <td>{{$usuario->status}}</td>
-                        <td><a href="/user_change/{{$usuario->id}}">editar</a></td>
-                        <td><a href="/user_delete/{{$usuario->id}}">apagar</a></td>
+                        <td><a href="/user_change/{{$usuario->id}}"> <i class="fas fa-pen"></i> </a></td>
+                        <td><a href="/user_delete/{{$usuario->id}}"> <i class="fas fa-trash text-danger"></i> </a></td>
                     </tr>
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>

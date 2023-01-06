@@ -90,12 +90,11 @@ Route::get('/dashboard', function () {
 
 
 //Rotas carrinho de compra
-Route::post('remover', [CartController::class, 'removeCart'])->name('cart.remove');
-Route::post('/cart', [ProductController::class, 'produto_busca'])->name('cart.store');
-
+Route::get('/cart', [ProductController::class, 'produto_busca']);
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
+Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
-
+Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::post('troco', [CartController::class, 'cartTroco'])->name('cart.troco');
 //Route::get('/home', [LoginController::class, 'login']);

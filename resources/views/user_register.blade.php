@@ -24,7 +24,7 @@
       </div>
     <div class="col-md-6">
         <label for="inputAddress" class="form-label">Nível de permissão</label><br>
-        <select name="permissao" class="form-select form-label">
+        <select name="permissao" class="form-control form-select form-label">
             <option value="ADMIN" selected>Administrador</option>
             <option value="USUARIO">Usuário</option>
           </select>
@@ -34,8 +34,8 @@
         <input type="text" name="telefone" class="form-control" id="inputAddress">
       </div>
     <div class="col-12"><br>
-      <button type="submit" class="btn btn-primary">Cadastrar</button>
+      <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
     </div>
-    
+
   </form>
 @endsection

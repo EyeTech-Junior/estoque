@@ -11,10 +11,10 @@
         <label for="inputAddress" class="form-label">Nome</label>
         <input type="text" name="name" class="form-control" id="inputAddress">
       </div>
-    
+
     <div class="col-12"><br>
-      <button type="submit" class="btn btn-primary">Cadastrar</button>
+      <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
     </div>
-    
+
   </form>
 @endsection

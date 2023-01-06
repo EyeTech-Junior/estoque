@@ -2,6 +2,57 @@
 
 @section('content')
 
+<head>
+    <style>
+
+
+        /* .inputsRegistro label {
+            border: 1px solid blue;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        } */
+
+
+        .inputsRegistro {
+            width: 100%;
+            padding: 10px;
+        }
+        .inputsRegistro div {
+            height: 40px;
+            width: 100%;
+            position: relative;
+            margin: 15px 0px;
+        }
+
+        .inputsRegistro div input, .inputsRegistro div select {
+            width: 100%;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 2px solid gray;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .inputsRegistro div select:focus ~ label,
+        .inputsRegistro div input:focus ~ label,
+        .inputsRegistro div select:valid ~ label,
+        .inputsRegistro div input:valid ~ label {
+            color: blue;
+            transform: translateY(-30px);
+            font-size: 0.8rem;
+        }
+
+        .inputsRegistro div label {
+            position: absolute;
+            bottom: 0px;
+            left: 20px;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+
+    </style>
+</head>
 
 <form role="form" method="POST" action="{{ route('produto')}}">
 @csrf
@@ -10,86 +61,87 @@
 		<div class="form-title">
 			<h1> Cadastrar produtos</h1>
 		</div>
-		<div class="form-body row">
+		<div class="form-body row inputsRegistro">
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="name" value="" required required>
 				<label class="form-label" for="">Nome do produto</label>
-				<input class="form-control" type="text" name="name" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="cost" value="" required>
 				<label class="form-label" for="">Preço de custo</label>
-				<input class="form-control" type="text" name="cost" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="price" value="" required>
 				<label class="form-label" for="">Preço de venda</label>
-				<input class="form-control" type="text" name="price" value="">
 			</div>
 			<!-- novos dados de cadastro -->
 			<div class="col-sm-4">
-				<label class="form-label" for="">Sistema de unidade</label>
-				<select class="form-select form-control" name="unidade">
-					<option value="tamanho" selected>Tamanho</option>
+				<select class="form-select form-control" name="unidade" required>
+                    <option value="" selected></option>
+					<option value="tamanho">Tamanho</option>
 					<option value="unidade">Unidade</option>
 					<option value="caixa">Caixa</option>
 					<option value="peso">Peso</option>
 				</select>
+				<label class="form-label" for="">Sistema de unidade</label>
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="quantidade" value="" required>
 				<label class="form-label" for="">Quantidade</label>
-				<input class="form-control" type="text" name="quantidade" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="marca" value="" required>
 				<label class="form-label" for="">Marca</label>
-				<input class="form-control" type="text" name="marca" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="grupo" value="" required>
 				<label class="form-label" for="">Grupo</label>
-				<input class="form-control" type="text" name="grupo" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="fornecedor" value="" required>
 				<label class="form-label" for="">Fornecedor</label>
-				<input class="form-control" type="text" name="fornecedor" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="porcentagem" value="" required>
 				<label class="form-label" for="">Porcentagem</label>
-				<input class="form-control" type="text" name="porcentagem" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="imp_federal" value="" required>
 				<label class="form-label" for="">Imp. Federal</label>
-				<input class="form-control" type="text" name="imp_federal" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="icms" value="" required>
 				<label class="form-label" for="">ICMS</label>
-				<input class="form-control" type="text" name="icms" value="">
 			</div>
 			<div class="col-sm-4">
+				<input class="form-control" type="text" name="codigo" value="" required>
 				<label class="form-label" for="">Código de barra</label>
-				<input class="form-control" type="text" name="codigo" value="">
 			</div>
 			<div class="col-sm-4">
-				<label class="form-label" for="">Código NSC</label>
 				<!-- <p><a href="https://www.freenfe.com.br/consulta-ncm/">consultar codigo NSC</a></p> -->
-				<input class="form-control" type="text" name="nsc" value="">
+				<input class="form-control" type="text" name="nsc" value="" required>
+				<label class="form-label" for="">Código NSC</label>
 			</div>
 			<div class="col-sm-4">
-				<label class="form-label" for="">categorias</label>
-					<select name="categoria" class="form-select form-label form-control">
+					<select name="categoria" class="form-select form-label form-control" required>
+                        <option value="" selected></option>
 						@foreach ($categorias as $categoria)
 						<option value="{{$categoria->id}}">{{$categoria->name}}</option>
 						@endforeach
 					</select>
-					<br>
+				<label class="form-label" for="">Categoria</label>
 			</div>
-			
-			
-			<div class="button-alt col-sm-4">
 
-				<button type="submit" class="btn btn-success"> Cadastrar </button>
+
+			<div class="button-alt col-sm-4 text-center m-auto">
+
+				<button type="submit" class="btn btn-success w-100"> Cadastrar </button>
 			</div>
 
 		</div>
-		
+
 	</div>
-	
+
 
 </form>
 @endsection

@@ -4,3 +4,4 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <!-- Custom styles for this template-->
 <link href="{{asset ('css/sb-admin-2.min.css')}}" rel="stylesheet">
+<link href="{{asset ('css/app.css')}}" rel="stylesheet">

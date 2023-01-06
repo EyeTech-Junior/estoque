@@ -1,0 +1,46 @@
+
+
+/* .inputsRegistro label {
+    border: 1px solid blue;
+    margin-top: 10px;
+    margin-bottom: 0px;
+} */
+
+
+.inputsRegistro {
+    width: 100%;
+    padding: 10px;
+}
+.inputsRegistro div {
+    height: 40px;
+    width: 100%;
+    position: relative;
+    margin: 15px 0px;
+}
+
+.inputsRegistro div input, .inputsRegistro div select {
+    width: 100%;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 2px solid gray;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.inputsRegistro div select:focus ~ label,
+.inputsRegistro div input:focus ~ label,
+.inputsRegistro div select:valid ~ label,
+.inputsRegistro div input:valid ~ label {
+    color: blue;
+    transform: translateY(-30px);
+    font-size: 0.8rem;
+}
+
+.inputsRegistro div label {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+

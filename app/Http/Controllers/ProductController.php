@@ -37,10 +37,10 @@ class ProductController extends Controller
     {
         if($request!=null){
             Product::create([
-                'name' => $request->nome,
+                'name' => $request->name,
                 'code'=>$request->codigo,
-                'cost'=>$request->custo,
-                'price'=>$request->preco,
+                'cost'=>$request->cost,
+                'price'=>$request->price,
                 'stock'=>$request->quantidade,
                 'category_id'=>$request->categoria,
 
@@ -51,7 +51,6 @@ class ProductController extends Controller
                 'percentage' => $request->porcentagem,
                 'tax' => $request->imp_federal,
                 'icms' => $request->icms,
-                'codigo' => $request->codigo,
                 'nsc' => $request->nsc,
                 ]);
                 return redirect('/product_list');

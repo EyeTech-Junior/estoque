@@ -6,7 +6,7 @@
 <div class="d-flex flex-row bd-highlight">
     <div class="card col-4">
         <div class="card-body">
-            <form role="form" method="POST" action="{{ route('cart.troco')}}">
+            <form role="form" method="POST" action="{{ route('cart.troco',['troco' => $troco]) }}">
                 @csrf
             <div class="input-group rounded">
                 <input type="search" name="troco" class="form-control rounded" 
@@ -18,15 +18,46 @@
                 </span>
                 </button>
               </div>
-            </form>
+            
             <label for="">Valor total da compra: R$ {{Cart::getTotal()}}</label><br>
-            <label for="">Valor Recebido: R$ </label><br>
-            <label for="">Troco: R$ </label>
+            <label for="">Valor Recebido: R$ $
+            @if ($troco == null)
+                {{ "0" }}
+            @else
+            @if ($troco < 0)
+                {{"0"}}
+            @else
+                {{ $troco + Cart::getTotal()}}
+            @endif
+                
+            @endif    
+            </label><br>
+            <label for="">Troco: R$ 
+
+            @if ($troco == null)
+                {{ "0" }}
+            @else
+            @if ($troco < 0)
+                {{"0"}}
+            @else
+                {{ $troco }}
+            @endif
+                
+            @endif 
+            </label>
+        </form>
             <div class="">
                 <form action="{{ route('cart.clear') }}" method="POST">
                   @csrf
                   <button class="border-0 btn btn-danger text-whiter">Remover tudo</button>
+                  
                 </form>
+                <br>
+                <form action="sale.register" method="POST">
+                    <input type="hidden" name="compra" value="{{ $troco + Cart::getTotal()}}" >
+                    <button class="border-0 btn btn-success text-whiter">Finalizar venda</button>
+                  </form>
+                
               </div>
         </div>
     </div>

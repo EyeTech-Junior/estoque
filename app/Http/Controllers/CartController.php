@@ -11,7 +11,8 @@ class CartController extends Controller
     function cartList()
     {
         $cartItems = Cart::getContent();
-        return view('cart', compact('cartItems'));
+        $troco = 0;
+        return view('cart',compact('cartItems','troco'));
     }
 
 //adicionar item do carrinho
@@ -80,8 +81,23 @@ if($produtos != null){
 //calcula troco
     public function cartTroco(Request $request)
     {
+        $troco = 0;
         $total = Cart::getTotal();
-        $troco = $request->troco - $total;
-        return view('cart',['troco' => $troco]);
+        if($total == 0 || $total == null){
+
+            $cartItems = Cart::getContent();
+            $troco = 0;
+            return view('cart',compact('cartItems','troco'));
+        }else{
+
+            $cartItems = Cart::getContent();
+            $valor = $request->troco;
+            $troco = $valor - $total;
+
+            return view('cart',compact('cartItems','troco'));
+        }
+        
+        
+        
     }
 }

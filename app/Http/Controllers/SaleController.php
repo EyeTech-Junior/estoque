@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
 class SaleController extends Controller
 {
@@ -38,7 +41,24 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cartItems = Cart::getContent();
+        try {
+            Sale::create([
+                'total' => Cart::getTotal(),
+                'itens'=>Cart::getTotalQuantity(),
+                'cash'=>$request->compra,
+                'change'=>$request->price,
+                'status'=>"PAID",
+                'user_id'=>auth()->id(),
+                ]);
+                return view('sale_list');
+        } catch (\Throwable $th) {
+            return view('404', compact('th'));
+        }
+        
+    
+        
+    
     }
 
     /**

@@ -43,7 +43,7 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $cartItems = Cart::getContent();
-       // try {
+        try {
             Sale::create([
                 
                 'total' => $request->total,
@@ -57,8 +57,7 @@ class SaleController extends Controller
                 $idCompra = Sale::getContent()->orderBy('created_at', 'desc')->first();
 
                 //insere produtos na tabela Sale_datails
-                $cartItems = Cart::getContent();
-                dd();/*
+                dd($cartItems);
                 foreach ($cartItems as $item) {
                     $
                     $item->id;
@@ -71,15 +70,15 @@ class SaleController extends Controller
                 }
                 //limpa o carrinho atual
                 Cart::clear();
-*/
+
                 //envia informações para a tabela de vendas
                 $sales = Sale::getContent();
                 return view('sale_list', compact('sales'));
 
-       // } catch (\Throwable $th) {
+        } catch (\Throwable $th) {
            
-           //return view('404', compact('th'));
-       //}
+           return view('404', compact('th'));
+        }
         
     
         

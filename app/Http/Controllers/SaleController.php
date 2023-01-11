@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\SaleDetails;
 use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\DB;
@@ -42,19 +43,43 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $cartItems = Cart::getContent();
-        try {
+       // try {
             Sale::create([
-                'total' => Cart::getTotal(),
+                
+                'total' => $request->total,
                 'itens'=>Cart::getTotalQuantity(),
-                'cash'=>$request->compra,
-                'change'=>$request->price,
-                'status'=>"PAID",
+                'cash'=>$request->recebido,
+                'change'=>$request->troco,
+                'status'=>'PAID',
                 'user_id'=>auth()->id(),
                 ]);
-                return view('sale_list');
-        } catch (\Throwable $th) {
-            return view('404', compact('th'));
-        }
+                
+                $idCompra = Sale::getContent()->orderBy('created_at', 'desc')->first();
+
+                //insere produtos na tabela Sale_datails
+                $cartItems = Cart::getContent();
+                dd();/*
+                foreach ($cartItems as $item) {
+                    $
+                    $item->id;
+                    SaleDetails::create ([
+                        'price'=>$item->price,
+                        'quantity'=>$item->quantity,
+                        'product_id'=>$item->id,
+                        'sale_id'=>$idCompra->id
+                    ]) ;
+                }
+                //limpa o carrinho atual
+                Cart::clear();
+*/
+                //envia informações para a tabela de vendas
+                $sales = Sale::getContent();
+                return view('sale_list', compact('sales'));
+
+       // } catch (\Throwable $th) {
+           
+           //return view('404', compact('th'));
+       //}
         
     
         

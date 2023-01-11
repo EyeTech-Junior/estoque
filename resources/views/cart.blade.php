@@ -53,8 +53,11 @@
                   
                 </form>
                 <br>
-                <form action="sale.register" method="POST">
-                    <input type="hidden" name="compra" value="{{ $troco + Cart::getTotal()}}" >
+                <form action="{{ route('sale.register') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="recebido" value="{{ $troco + Cart::getTotal()}}" >
+                    <input type="hidden" name="total" value="{{Cart::getTotal()}}" >
+                    <input type="hidden" name="troco" value="{{$troco}}" >
                     <button class="border-0 btn btn-success text-whiter">Finalizar venda</button>
                   </form>
                 

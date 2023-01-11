@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DenominationController;
@@ -20,13 +21,13 @@ use App\Http\Controllers\CartController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/home', function () {
-    return view('home');
-});
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', function () {
-    return view('home');
+    return view('/auth/login');
 });
+
 
 Route::get('/404', function () {
     return view('404');
@@ -88,8 +89,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-//cadastrar venda
-Route::post('sale', [SaleController::class, 'store'])->name('sale.register');
+
 
 //Rotas carrinho de compra
 Route::get('/cart', [ProductController::class, 'produto_busca']);
@@ -103,6 +103,8 @@ Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear'
 
 Route::post('troco', [CartController::class, 'cartTroco'])->name('cart.troco');
 
+//cadastrar venda
+Route::post('sale', [SaleController::class, 'store'])->name('sale.register');
 
 //Route::get('/home', [LoginController::class, 'login']);
 //Route::post('/welcome', [LoginController::class, 'logar'])->name('registrar');

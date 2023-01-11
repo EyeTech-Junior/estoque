@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\VarDumper\VarDumper;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,6 +18,23 @@ class UserController extends Controller
     public function create(Request $request)
     {
     
+    }
+    
+    public function auth(Request $request)
+    {
+        $this->validate($request,[
+            'email'=>'required',
+            'password'=>'required',],
+            [
+                'email.required'=>'E-mail é obrigatório',
+                'password.required'=>'Senha é obrigatória'
+            ]);
+
+            if (Auth::attemp(['email'=>$request->email, 'password'=>$request->password])) {
+                return redirect('/home');
+            }else{
+                return redirect()->back()-with('danger','E-mail ou senha inválidos');
+            }
     }
 
     //cadastra usuário no banco

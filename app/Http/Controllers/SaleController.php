@@ -21,7 +21,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        return view('sale_register');
+        $sales = Sale::get();
+        return view('sale_list', compact('sales'));
     }
 
     /**
@@ -43,23 +44,26 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $cartItems = Cart::getContent();
-        try {
-            Sale::create([
-                
-                'total' => $request->total,
-                'itens'=>Cart::getTotalQuantity(),
-                'cash'=>$request->recebido,
-                'change'=>$request->troco,
-                'status'=>'PAID',
-                'user_id'=>auth()->id(),
-                ]);
-                
-                $idCompra = Sale::getContent()->orderBy('created_at', 'desc')->first();
+        $id_user = auth()->id();
+        $quantidade = Cart::getTotalQuantity();
 
+        try {
+                Sale::create([
+                'total' => $request->total,
+                'itens'=> $quantidade,
+                'cash' => $request->recebido,
+                'change' => $request->troco,
+                'user_id' => $id_user
+                ]);
+
+                $idCompra = DB::table('sales')
+                ->orderByRaw('created_at DESC')
+                ->get()->first();
+                
                 //insere produtos na tabela Sale_datails
-                dd($cartItems);
+                
                 foreach ($cartItems as $item) {
-                    $
+                    
                     $item->id;
                     SaleDetails::create ([
                         'price'=>$item->price,
@@ -68,21 +72,18 @@ class SaleController extends Controller
                         'sale_id'=>$idCompra->id
                     ]) ;
                 }
+
                 //limpa o carrinho atual
                 Cart::clear();
-
+                
                 //envia informações para a tabela de vendas
-                $sales = Sale::getContent();
+                $sales = Sale::get();
                 return view('sale_list', compact('sales'));
 
+
         } catch (\Throwable $th) {
-           
-           return view('404', compact('th'));
+            return view('404', compact('th'));
         }
-        
-    
-        
-    
     }
 
     /**

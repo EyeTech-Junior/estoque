@@ -108,14 +108,8 @@ Route::post('sale', [SaleController::class, 'store'])->name('sale.register');
 
 //Route::get('/home', [LoginController::class, 'login']);
 //Route::post('/welcome', [LoginController::class, 'logar'])->name('registrar');
-//Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
-//Route::get('/', [ProductController::class, 'productList'])->name('products.list');
-Route::get('/vendas', [SaleController::class, 'index']);
+//Route::post('sale_itens', [CartController::class, 'addToCart'])->name('cart.store');
 
-/*
-
-Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-*/
+//rota de listagem de vendas
+Route::get('/sale_list', [SaleController::class, 'index']);
 

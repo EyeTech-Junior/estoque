@@ -100,15 +100,11 @@ Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.up
 Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 
-
+//Faz o calculo do troco e retorna o valor
 Route::post('troco', [CartController::class, 'cartTroco'])->name('cart.troco');
 
 //cadastrar venda
 Route::post('sale', [SaleController::class, 'store'])->name('sale.register');
-
-//Route::get('/home', [LoginController::class, 'login']);
-//Route::post('/welcome', [LoginController::class, 'logar'])->name('registrar');
-//Route::post('sale_itens', [CartController::class, 'addToCart'])->name('cart.store');
 
 //rota de listagem de vendas
 Route::get('/sale_list', [SaleController::class, 'index']);

@@ -21,6 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Realiza a separação dos produtos que estão na venda -->
                     @foreach ($products as $product)
                     <tr>@foreach ($itens as $item)
                         @if($product->id == $item->product_id)

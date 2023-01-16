@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\SaleDetails;
 use Illuminate\Http\Request;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -92,9 +93,18 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale)
+    public function show($id)
     {
-        //
+        
+        $itens = DB::table('sale_details')
+        ->where('sale_id',$id)->get();
+
+        $products = Product::get();
+        return view('sale_itens', compact('itens','products'));
+        
+        //return view('404', compact('th'));
+        
+        
     }
 
     /**

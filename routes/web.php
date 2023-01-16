@@ -113,3 +113,6 @@ Route::post('sale', [SaleController::class, 'store'])->name('sale.register');
 //rota de listagem de vendas
 Route::get('/sale_list', [SaleController::class, 'index']);
 
+//rota de listagem dos produtos da venda
+Route::get('/sale_itens/{id}', [SaleController::class, 'show']);
+

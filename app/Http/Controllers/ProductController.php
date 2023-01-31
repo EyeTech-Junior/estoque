@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
-        
+
 
 
     }
@@ -57,8 +57,8 @@ class ProductController extends Controller
         }else{
             return redirect('/404');
         }
-        
-            
+
+
             //retornar valores
             //$produtos = Product::get();
             //return view('estoque',['produtos' => $produtos]);
@@ -69,6 +69,14 @@ class ProductController extends Controller
     {
         $produtos = Product::get();
         return view('product_list',['produtos' => $produtos]);
+    }
+
+    //pesquisar produto por código ou nome
+    public function search(String $pesquisa)
+    {
+        $produtos = Product::where('name', 'like', "%{$pesquisa}%")->orWhere('code', 'like', "%{$pesquisa}%")->get();
+        //$produtos = Product::get();
+        return $produtos;
     }
 
     //retornar informações para serem alteradas
@@ -113,10 +121,10 @@ class ProductController extends Controller
                 ]);
 
                 return redirect('/product_list');
-    
+
         }else{
             return redirect('/404');
-        } 
+        }
     }
 
      //abre tela de confirmação de exclusão

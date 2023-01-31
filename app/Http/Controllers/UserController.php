@@ -17,9 +17,9 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-    
+
     }
-    
+
     public function auth(Request $request)
     {
         $this->validate($request,[
@@ -61,6 +61,7 @@ class UserController extends Controller
     {
         $usuarios = User::get();
         return view('user_list',['usuarios' => $usuarios]);
+        /* return $usuarios; */
     }
 
     //envia informações para alterar
@@ -74,7 +75,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-    
+
     if($request->password1 == null){
 
         $user->update([
@@ -104,7 +105,7 @@ class UserController extends Controller
     }
     }
 
-   
+
     //redireciona para a página de confirmação
      public function delete($id){
         $item = User::findOrFail($id);
@@ -116,6 +117,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return redirect('/user_list');
-    
+
     }
 }

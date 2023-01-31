@@ -96,9 +96,11 @@ Route::get('/cart', [ProductController::class, 'produto_busca']);
 Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
 Route::get('troco', [CartController::class, 'cartTroco'])->name('cart.troca');
 Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
+Route::post('/cart/store', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+
 
 //Faz o calculo do troco e retorna o valor
 Route::post('troco', [CartController::class, 'cartTroco'])->name('cart.troco');
@@ -112,3 +114,7 @@ Route::get('/sale_list', [SaleController::class, 'index']);
 //rota de listagem dos produtos da venda
 Route::get('/sale_itens/{id}', [SaleController::class, 'show']);
 
+
+
+
+Route::get('/pesquisar_produtos/{pesquisa}', [ProductController::class, 'search']);

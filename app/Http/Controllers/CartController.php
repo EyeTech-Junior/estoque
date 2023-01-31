@@ -20,34 +20,35 @@ class CartController extends Controller
     {
         $products = DB::table('products')
         ->where('code', '=', $request->search)
-        ->value('id') ? 
+        ->value('id') ?
         $products = DB::table('products')
         ->where('code', '=', $request->search)
         ->value('id') :
         $products = DB::table('products')
         ->where('name', '=', $request->search)
         ->value('id') ;
-$produto = Product::all();
-$produtos = $produto->find($products);
-//dd($produtos);
-$quantity = 1;
-if($produtos != null){
-    Cart::add([
-        'id' => $produtos->id,
-        'name' => $produtos->name,
-        'price' => $produtos->price,
-        'quantity' => $quantity,
-        'category' => $produtos->category_id,
-        'attributes' => array(
-            'image' => $produtos->image,
-            'stock' => $produtos->stock,
-        )
-    ]);
 
-    return redirect()->route('cart.list');
-}else{
-    return redirect('404');
-}
+        $produto = Product::all();
+        $produtos = $produto->find($products);
+        //dd($produtos);
+        $quantity = 1;
+        if($produtos != null){
+            Cart::add([
+                'id' => $produtos->id,
+                'name' => $produtos->name,
+                'price' => $produtos->price,
+                'quantity' => $quantity,
+                'category' => $produtos->category_id,
+                'attributes' => array(
+                    'image' => $produtos->image,
+                    'stock' => $produtos->stock,
+                )
+            ]);
+
+            return redirect()->route('cart.list');
+        }else{
+            return redirect('404');
+        }
     }
 //atualizar item do carrinho
     public function updateCart(Request $request)
@@ -66,7 +67,7 @@ if($produtos != null){
     }
 //remover item do carrinho
     public function removeCart(Request $request)
-    {   
+    {
         Cart::remove($request->remover);
         $cartItems = Cart::getContent();
         return view('cart', compact('cartItems'));
@@ -77,7 +78,7 @@ if($produtos != null){
         Cart::clear();
         return redirect()->route('cart.list');
     }
-    
+
 //calcula troco
     public function cartTroco(Request $request)
     {
@@ -96,8 +97,8 @@ if($produtos != null){
 
             return view('cart',compact('cartItems','troco'));
         }
-        
-        
-        
+
+
+
     }
 }

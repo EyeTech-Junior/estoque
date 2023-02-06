@@ -15,8 +15,8 @@
                         <th>Total da venda</th>
                         <th>Total entregue</th>
                         <th>Total devolvido</th>
-                        <th>Quantidade total</th>
-                        <th>Data</th>
+                        <th>Itens totais</th>
+                        <th>Dia da venda</th>
                         <th>Estado</th>
                         <th>====</th>
                     </tr>
@@ -27,7 +27,12 @@
                         <td>{{$loop->index}}</td>
                         <td>{{$sale->total}}</td>
                         <td>{{$sale->cash}}</td>
+                        @if ($sale->change == 0 || $sale->change == null)
+                        <td>====</td>
+                        @else
                         <td>{{$sale->change}}</td>
+                        @endif
+                        
                         <td>{{$sale->user_id}}</td>
                         <td>{{$sale->created_at}}</td>
                         @if ($sale->status == "PAID")
@@ -36,7 +41,7 @@
                         <td>PENDENTE</td>
                         @endif
 
-                        <td><a href="/sale_itens/{{$sale->id}}">itens</a></td>
+                        <td><a href="/sale_itens/{{$sale->id}}">itens da venda</a></td>
                     </tr>
                     
                     @endforeach

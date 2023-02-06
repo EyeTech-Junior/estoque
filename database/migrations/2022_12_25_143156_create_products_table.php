@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('image',100)->nullable();
             $table->string('unity',25)->nullable();
             $table->string('company',25)->nullable();
-            $table->string('group',25)->nullable();
+            $table->date('validate',25)->nullable();
             $table->string('provider',25)->nullable();
             $table->decimal('percentage',10,2)->nullable();
             $table->decimal('tax',10,2)->nullable();

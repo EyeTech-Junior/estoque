@@ -46,7 +46,7 @@ class ProductController extends Controller
 
                 'unity' => $request->unidade,
                 'company'=> $request->marca,
-                'group' => $request->grupo,
+                'validate' => $request->validate,
                 'provider' => $request->fornecedor,
                 'percentage' => $request->porcentagem,
                 'tax' => $request->imp_federal,
@@ -67,8 +67,9 @@ class ProductController extends Controller
     //Exibe lista de produtos
     public function show()
     {
+        $categorias = Category::get();
         $produtos = Product::get();
-        return view('product_list',['produtos' => $produtos]);
+        return view('product_list',compact('produtos','categorias'));
     }
 
     //pesquisar produto por código ou nome
@@ -83,8 +84,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $categorias = Category::get();
-        $product = Product::findOrFail($id);
-        return view('product_change',['product' => $product,'categorias' => $categorias]);
+        $products = Product::findOrFail($id);
+        return view('product_change',compact('products','categorias'));
     }
 
     //atualiza informações no banco
@@ -95,29 +96,21 @@ class ProductController extends Controller
         if($request != null){
 
             $products->update([
-                'name' => $request->nome,
+                'name' => $request->name,
                 'code'=>$request->codigo,
-                'cost'=>$request->custo,
-                'price'=>$request->preco,
+                'cost'=>$request->cost,
+                'price'=>$request->price,
                 'stock'=>$request->quantidade,
                 'category_id'=>$request->categoria,
-                //'preco_custo' => $request->pcusto,
-                //'preco_venda' => $request->pvenda,
-                //'unidade' => $request->unidade,
-                //'quantidade' => $request->quantidade,
-                //'quant_max' => $request->quant_max,
-                //'quant_min'=> $request->quant_min,
-                //'referencia' => $request->referencia,
-                //'marca'=> $request->marca,
-                //'grupo' => $request->grupo,
-                //'fornecedor' => $request->fornecedor,
-                //'porcentagem' => $request->porcentagem,
-                //'imp_federal' => $request->imp_federal,
-                //'icms' => $request->icms,
-                //'lucro' => $request->lucro,
-                //'codigo' => $request->codigo,
-                //'nsc' => $request->nsc,
-                //'categoria' => $request->categoria,
+                
+                'unity' => $request->unidade,
+                'company'=> $request->marca,
+                'validate' => $request->validate,
+                'provider' => $request->fornecedor,
+                'percentage' => $request->porcentagem,
+                'tax' => $request->imp_federal,
+                'icms' => $request->icms,
+                'nsc' => $request->nsc,
                 ]);
 
                 return redirect('/product_list');

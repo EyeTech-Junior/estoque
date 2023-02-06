@@ -101,7 +101,8 @@
                         <th>Quant</th>
                         <th></th>
                         <th></th>
-                        <th></th>
+                        <!--
+                        <th></th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -122,13 +123,15 @@
                         <td>
                             <button type="submit" class="btn btn-primary">alterar</button>
                         </td>
+                        <!--
                         <td>
+                            
                             <form action="{{ route('cart.remove') }}" method="POST">
                             @csrf
                             <input type="hidden" name="remover" value="{{ $item->id }}" >
                             <button type="submit" class="border-0 btn btn-danger text-white ">remover</button>
                             </form>
-                        </td>
+                        </td>-->
                     </form>
 
                     </tr>

@@ -12,20 +12,20 @@
 		</div>
 		<div class="form-body row inputsRegistro">
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="name" value="" required required>
-				<label class="form-label" for="">Nome do produto</label>
+				<input class="form-control" type="text" name="name" value="" required>
+				<label class="form-label" for="">* Nome do produto</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="cost" value="" required>
-				<label class="form-label" for="">Preço de custo</label>
+				<input class="form-control" type="text"  id="num1" name="cost" value="" required>
+				<label class="form-label" for="">* Preço de custo</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="price" value="" required>
-				<label class="form-label" for="">Preço de venda</label>
+				<input class="form-control" type="text"  id="valor" name="price" value="" required>
+				<label class="form-label" for="">* Preço de venda</label>
 			</div>
 			<!-- novos dados de cadastro -->
 			<div class="col-sm-4">
-				<select class="form-select form-control" name="unidade" required>
+				<select class="form-select form-control" name="unidade">
                     <option value="" selected></option>
 					<option value="tamanho">Tamanho</option>
 					<option value="unidade">Unidade</option>
@@ -36,49 +36,65 @@
 			</div>
 			<div class="col-sm-4">
 				<input class="form-control" type="text" name="quantidade" value="" required>
-				<label class="form-label" for="">Quantidade</label>
+				<label class="form-label" for="">*Quantidade</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="marca" value="" required>
+				<input class="form-control" type="text" name="marca" value="">
 				<label class="form-label" for="">Marca</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="grupo" value="" required>
-				<label class="form-label" for="">Grupo</label>
+				<input class="form-control" type="date" name="validate" value="">
+				<label class="form-label" for="">Validade</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="fornecedor" value="" required>
+				<input class="form-control" type="text" name="fornecedor" value="">
 				<label class="form-label" for="">Fornecedor</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="porcentagem" value="" required>
+				<input class="form-control" type="text" id="valor" name="porcentagem" value="">
 				<label class="form-label" for="">Porcentagem</label>
 			</div>
+			<!--
+			<script>
+				document.getElementById("btn").onclick = function() {
+  					var valorProduto = "";
+  					valorProduto = document.getElementById("valor1").value *100 ;
+  					document.getElementById("valor").innerHTML = valorProduto;
+  					return false;
+					}
+					document.getElementById("btn2").onclick = function() {
+  					var valorProduto = "";
+  					valorProduto = document.getElementById("valor2").value * 100;
+  					document.getElementById("valor").innerHTML = valorProduto;
+  					return false;
+					}
+
+			</script>-->
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="imp_federal" value="" required>
+				<input class="form-control" type="text" name="imp_federal" value="">
 				<label class="form-label" for="">Imp. Federal</label>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="icms" value="" required>
+				<input class="form-control" type="text" name="icms" value="">
 				<label class="form-label" for="">ICMS</label>
 			</div>
 			<div class="col-sm-4">
 				<input class="form-control" type="text" name="codigo" value="" required>
-				<label class="form-label" for="">Código de barra</label>
+				<label class="form-label" for="">*Código de barra</label>
 			</div>
 			<div class="col-sm-4">
 				<!-- <p><a href="https://www.freenfe.com.br/consulta-ncm/">consultar codigo NSC</a></p> -->
-				<input class="form-control" type="text" name="nsc" value="" required>
+				<input class="form-control" type="text" name="nsc" value="">
 				<label class="form-label" for="">Código NSC</label>
 			</div>
 			<div class="col-sm-4">
-					<select name="categoria" class="form-select form-label form-control" required>
+					<select name="categoria" class="form-select form-label form-control">
                         <option value="" selected></option>
 						@foreach ($categorias as $categoria)
 						<option value="{{$categoria->id}}">{{$categoria->name}}</option>
 						@endforeach
 					</select>
-				<label class="form-label" for="">Categoria</label>
+				<label class="form-label" for="">*Categoria</label>
 			</div>
 
 

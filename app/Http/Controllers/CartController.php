@@ -31,6 +31,7 @@ class CartController extends Controller
         $produto = Product::all();
         $produtos = $produto->find($products);
         //dd($produtos);
+        
         $quantity = 1;
         if($produtos != null){
             Cart::add([

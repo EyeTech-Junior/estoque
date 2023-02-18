@@ -2,134 +2,155 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use App\Models\Category;
 use Illuminate\Http\Request;
-//use Darryldecode\Cart\Facades\CartFacade as Cart;
-//use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-
-    //retorna a página de cadastro
-    public function index_register()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-        $categorias = Category::get();
-        return view('product_register',['categorias' => $categorias]);
+        $products = new Product();
+        if ($request->search) {
+            $products = $products->where('name', 'LIKE', "%{$request->search}%");
+        }
+        $products = $products->latest()->paginate(10);
+        if (request()->wantsJson()) {
+            return ProductResource::collection($products);
+        }
+        return view('products.index')->with('products', $products);
     }
 
-
-    //faz a busca do produto no banco e insere no carrinho
-    public function produto_busca(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        return view('cart');
+        return view('products.create');
     }
 
-    public function create(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ProductStoreRequest $request)
     {
+        $image_path = '';
 
-
-
-    }
-
-    //cadastra produto no banco
-    public function store(Request $request)
-    {
-        if($request!=null){
-            Product::create([
-                'name' => $request->name,
-                'code'=>$request->codigo,
-                'cost'=>$request->cost,
-                'price'=>$request->price,
-                'stock'=>$request->quantidade,
-                'category_id'=>$request->categoria,
-
-                'unity' => $request->unidade,
-                'company'=> $request->marca,
-                'validate' => $request->validate,
-                'provider' => $request->fornecedor,
-                'percentage' => $request->porcentagem,
-                'tax' => $request->imp_federal,
-                'icms' => $request->icms,
-                'nsc' => $request->nsc,
-                ]);
-                return redirect('/product_list');
-        }else{
-            return redirect('/404');
+        if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('products', 'public');
         }
 
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image_path,
+            'barcode' => $request->barcode,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'status' => $request->status,
+            'category'=> $request->category,
+            'validity'=> $request->validity,
+            'company'=> $request->company,
+            'provider'=> $request->provider,
+            'quantify'=> $request->quantify,
+            'cost'=> $request->cost,
+        ]);
 
-            //retornar valores
-            //$produtos = Product::get();
-            //return view('estoque',['produtos' => $produtos]);
-    }
-
-    //Exibe lista de produtos
-    public function show()
-    {
-        $categorias = Category::get();
-        $produtos = Product::get();
-        return view('product_list',compact('produtos','categorias'));
-    }
-
-    //pesquisar produto por código ou nome
-    public function search(String $pesquisa)
-    {
-        $produtos = Product::where('name', 'like', "%{$pesquisa}%")->orWhere('code', 'like', "%{$pesquisa}%")->get();
-        //$produtos = Product::get();
-        return $produtos;
-    }
-
-    //retornar informações para serem alteradas
-    public function edit($id)
-    {
-        $categorias = Category::get();
-        $products = Product::findOrFail($id);
-        return view('product_change',compact('products','categorias'));
-    }
-
-    //atualiza informações no banco
-    public function update(Request $request, $id)
-    {
-        $products = Product::findOrFail($id);
-
-        if($request != null){
-
-            $products->update([
-                'name' => $request->name,
-                'code'=>$request->codigo,
-                'cost'=>$request->cost,
-                'price'=>$request->price,
-                'stock'=>$request->quantidade,
-                'category_id'=>$request->categoria,
-                
-                'unity' => $request->unidade,
-                'company'=> $request->marca,
-                'validate' => $request->validate,
-                'provider' => $request->fornecedor,
-                'percentage' => $request->porcentagem,
-                'tax' => $request->imp_federal,
-                'icms' => $request->icms,
-                'nsc' => $request->nsc,
-                ]);
-
-                return redirect('/product_list');
-
-        }else{
-            return redirect('/404');
+        if (!$product) {
+            return redirect()->back()->with('error', 'Desculpe, Houve um problema ao cadastrar produto.');
         }
+        return redirect()->route('products.index')->with('success', 'Sucesso, produto cadastrado com sucesso.');
     }
 
-     //abre tela de confirmação de exclusão
-     public function delete($id){
-        $item = Product::findOrFail($id);
-        return view('product_delete', ['item' => $item]);
-    }
-
-    public function destroy($id)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Product $product)
     {
-        $products = Product::findOrFail($id);
-        $products->delete();
-        return redirect('/product_list');
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
+    {
+        return view('products.edit')->with('product', $product);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ProductUpdateRequest $request, Product $product)
+    {
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->barcode = $request->barcode;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->status = $request->status;
+        $product->category = $request->category;
+        $product->validity=$request->validity;
+        $product->company= $request->company;
+        $product->provider= $request->provider;
+        $product->quantify= $request->quantify;
+        $product->cost= $request->cost;
+
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($product->image) {
+                Storage::delete($product->image);
+            }
+            // Store image
+            $image_path = $request->file('image')->store('products', 'public');
+            // Save to Database
+            $product->image = $image_path;
+        }
+
+        if (!$product->save()) {
+            return redirect()->back()->with('error', 'Desculpe, Aconteceu um problema ao atualizar produto.');
+        }
+        return redirect()->route('products.index')->with('Sucesso', 'Produto foi atualizado com sucesso.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
+    {
+        if ($product->image) {
+            Storage::delete($product->image);
+        }
+        $product->delete();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

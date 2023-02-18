@@ -15,16 +15,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
-            $table->string('phone',100)->nullable();
-            $table->string('email',100)->unique();
-            $table->enum('profile',['ADMIN','USUARIO'])->default('ADMIN');
-            $table->enum('status',['ACTIVE','LOCKED'])->default('ACTIVE');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('first_name', 20);
+            $table->string('last_name', 20);
             $table->string('password');
-            $table->string('image',100)->nullable();
+            $table->string('email')->unique();
+            $table->string('cpf')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
+        
         });
     }
 

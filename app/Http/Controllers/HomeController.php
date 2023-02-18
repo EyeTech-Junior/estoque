@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Sale;
-use App\Models\SaleDetails;
-use Illuminate\Http\Request;
-use Darryldecode\Cart\Facades\CartFacade as Cart;
-use App\Models\Product;
+
+use App\Models\Order;
+use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -27,32 +26,37 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        $products = Product::get();
-        $total_product = 0;
-        $count_product = 0;
-        foreach($products as $product){
-            $count_product=  $count_product+1;
-            $total_product = $product->stock + $total_product;
-            
+        $orders = Order::with(['items', 'payments'])->get();
+        $customers_count = Customer::count();
+
+        $vendas = DB::table('payments')
+                    ->select(DB::raw("DATE_FORMAT(created_at, '%m') AS month"), DB::raw("SUM(amount) AS total"))
+                    ->groupBy('month')
+                    ->get();
+
+        $labels = array();
+        $data = array();
+
+        foreach ($vendas as $venda) {
+            $labels[] = $venda->month;
+            $data[] = $venda->total;
         }
-
-        $sales = Sale::get();
-        $total_sale = 0;
-        $count_sale = 0;
-        foreach($sales as $sale){
-            $count_sale= $count_sale +1;
-            $total_sale = $sale->total + $total_sale;
-            
-        }
-        $sale_d = SaleDetails::get();
-
-        return view('home', compact('total_sale','count_product','count_sale','total_product'));
-
-    }
-
-    public function dashboard(){
-        
-        
+        //dd($data);
+        return view('home', compact( 'data', 'labels'), [
+            'orders_count' => $orders->count(),
+            'income' => $orders->map(function($i) {
+                if($i->receivedAmount() > $i->total()) {
+                    return $i->total();
+                }
+                return $i->receivedAmount();
+            })->sum(),
+            'income_today' => $orders->where('created_at', '>=', date('Y-m-d').' 00:00:00')->map(function($i) {
+                if($i->receivedAmount() > $i->total()) {
+                    return $i->total();
+                }
+                return $i->receivedAmount();
+            })->sum(),
+            'customers_count' => $customers_count
+        ]);
     }
 }

@@ -1,9 +1,0 @@
-#search-results {
-    border-radius: 10px;
-}
-
-.list-group-item:hover {
-    cursor: pointer;
-    background-color: rgb(21, 116, 122);
-    color: #fff;
-}

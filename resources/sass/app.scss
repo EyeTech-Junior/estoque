@@ -1,8 +1,80 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
+
+// Font Awesome
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/scss/solid";
+
+// SweetAlert2
+@import "sweetalert2/dist/sweetalert2.min.css";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
+
+// AdminLTE
+@import "admin-lte/dist/css/adminlte.min.css";
+
+// DataTables
+@import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+
+.user-cart {
+    .card {
+        height: 400px;
+    }
+    .qty {
+        width: 45px;
+        float: left;
+    }
+}
+
+.order-product {
+    .item {
+        float: left;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background: #fff;
+        margin: 0 2px 4px 2px;
+        img {
+            width: 100px;
+            height: 100px;
+            max-width: 100%;
+        }
+        h5 {
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+}
+
+.product-list {
+    .product-img {
+        max-width: 70px;
+        max-height: 70px;
+    }
+}
+
+[class*=sidebar-dark-] {
+    background-color: #28a745!important;
+}
+.nav-pills .nav-link {
+    color: #ffffff!important;
+}
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #00ff2a;
+    color: #000000!important;
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+    background-color: rgba(108, 245, 95, 0.8);
+    color: #2c2a2a;
+}
+.main-sidebar .brand-text, .main-sidebar .logo-xl, .main-sidebar .logo-xs, .sidebar .nav-link p, .sidebar .user-panel .info {
+    transition: margin-left .3s linear,opacity .2s ease,visibility .2s ease!important;
+}
+[class*=sidebar-dark] .brand-link, [class*=sidebar-dark] .brand-link .pushmenu {
+    color: rgb(255, 255, 255)!important;
+}

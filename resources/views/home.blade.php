@@ -1,88 +1,104 @@
-@extends('layouts.theme.app')
+@extends('layouts.admin')
+
+@section('content-header', 'Dashboard')
 
 @section('content')
-<div class="container">
-    
-        <div class="row justify-content-center">
-
-            
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Quantidade total de produtos diferentes</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$count_product}}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                  <h3>{{$orders_count}}</h3>
+                <p>Vendas feitas</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="{{route('orders.index')}}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    quantidade total de itens em estoque</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$total_product}}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                  <h3>{{config('settings.currency_symbol')}} {{number_format($income, 2)}}</h3>
+                <p>Renda total</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="{{route('orders.index')}}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{config('settings.currency_symbol')}} {{number_format($income_today, 2)}}</h3>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Valor total obtido das vendas</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$total_sale}}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p>Renda diária</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{{route('orders.index')}}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{$customers_count}}</h3>
 
-            
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">quantidade de vendas realizadas
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$count_sale}}</div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p>Quantidade de Usuários</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="{{ route('customers.index') }}" class="small-box-footer">Mais informações<i class="fas fa-arrow-circle-right"></i></a>
             </div>
-
-            
-        </div>
+          </div>
+          <!-- ./col -->
     </div>
-    
+    <div class="row">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      @if ((!$labels))
+ 
+      @else
+        <div><canvas id="myChart"></canvas></div>
+      
+      <script>
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ json_encode($labels) }},
+                datasets: [{'Janeiro','Fevereiro','Março'}]
+                    label: 'Vendas por Mês',
+                    data: {{ json_encode($data) }},
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+      </script>
+      @endif
+    </div>
+</div>
+
 @endsection

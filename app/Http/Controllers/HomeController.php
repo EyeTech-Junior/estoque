@@ -50,28 +50,30 @@ class HomeController extends Controller
         $item = OrderItem::get();
         $cost = 0;
         $cost_today = 0;
-        $item_hoje = $item->where('created_at', '=', today());
+        $item_hoje = $item->where('created_at', '>=', date('Y-m-d').' 00:00:00');
         foreach($item as $itens){
             
             foreach($product as $products){
                 if ( $itens->product_id ==  $products->id) {
-                    $cost = $products->cost + $cost;
-                }
-            }
-        }
-        foreach($item_hoje as $itens_hoje){
-            foreach($product as $products){
-                if ($products->id == $itens_hoje->product_id) {
-                    $cost_today = $products->cost_today + $cost_today;
+                    $cost = ($itens->quantity * $products->cost) + $cost;
                 }
             }
         }
 
-        //dd($data);
+        foreach($item_hoje as $itens_hoje){
+            foreach($product as $products){
+                if ($itens_hoje->product_id == $products->id) {
+                    $cost_today = ($itens_hoje->quantity * $products->cost) + $cost_today;
+                }
+            }
+        }
+
+
         return view('home', ['labels'=> json_encode($labels),'data'=> json_encode($data)], [
             'orders_count' => $orders->count(),
             'cost'=>$cost,
             'cost_today'=>$cost_today,
+            'orders_today'=>$orders->where('created_at', '>=', date('Y-m-d').' 00:00:00')->count(),
 
             'income' => $orders->map(function($i) {
                 if($i->receivedAmount() > $i->total()) {

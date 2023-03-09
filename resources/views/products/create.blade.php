@@ -124,7 +124,7 @@
 
         <div class="col-md-4 form-group">
             <label for="validity">Validade</label>
-            <input type="text" name="validity" class="form-control @error('validity') is-invalid @enderror"
+            <input type="date" name="validity" class="form-control @error('validity') is-invalid @enderror"
                 id="validity" placeholder="Validade" value="{{ old('validity') }}">
             @error('validity')
             <span class="invalid-feedback" role="alert">

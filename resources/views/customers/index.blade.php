@@ -15,8 +15,6 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>ID</th>
-                    <th>Avatar</th>
                     <th>Nome</th>
                     <th>Sobrenome</th>
                     <th>Email</th>
@@ -30,21 +28,26 @@
                 @foreach ($customers as $customer)
                     <tr>
                         <td>{{$loop->index}}</td>
-                        <td>{{$customer->id}}</td>
-                        <td>
-                            <img width="50" src="{{$customer->getAvatarUrl()}}" alt="">
-                        </td>
                         <td>{{$customer->first_name}}</td>
                         <td>{{$customer->last_name}}</td>
                         <td>{{$customer->email}}</td>
                         <td>{{$customer->phone}}</td>
                         <td>{{$customer->address}}</td>
-                        <td>{{$customer->created_at}}</td>
+                        <td>{{date( 'd/m/Y' , strtotime($customer->created_at))}}</td>
                         <td>
-                            <a href="{{ route('customers.edit', $customer) }}" class="btn btn-primary"><i
+
+                            <form id="delete-form" action="{{ route('customers.destroy', $customer->id) }}" method="POST">
+                                <a href="{{ route('customers.edit', $customer) }}" class="btn btn-primary"><i
                                     class="fas fa-edit"></i></a>
-                            <button class="btn btn-danger btn-delete" data-url="{{route('customers.destroy', $customer)}}"><i
-                                    class="fas fa-trash"></i></button>
+                                @csrf
+                                @method('DELETE')
+                                <a class="btn btn-danger btn-delete" href="{{ route('customers.destroy', $customer->id) }}" 
+                                    onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                    <i
+                                    class="fas fa-trash"></i>
+                                </a>
+                                
+                            </form>
                         </td>
                     </tr>
                 @endforeach

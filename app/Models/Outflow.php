@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Outflow extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'value',
+        'description',
+        'user',
+    ];
 }
+

@@ -12,15 +12,18 @@
             <div class="col-md-5">
                 <form action="{{route('orders.index')}}">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col">
                             <input type="date" name="start_date" class="form-control" value="{{request('start_date')}}" />
                         </div>
-                        <div class="col-md-5">
+                        <div class="col">
                             <input type="date" name="end_date" class="form-control" value="{{request('end_date')}}" />
                         </div>
-                        <div class="col-md-2">
+                        <div class="col">
                             <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
                         </div>
+                        <div class="col">
+                            <button class="btn btn-outline-success" onclick="window.print()">Gerar PDF</button>
+                        </div>  
                     </div>
                 </form>
             </div>

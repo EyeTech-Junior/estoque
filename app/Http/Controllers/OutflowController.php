@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Outflow;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 class OutflowController extends Controller
 {
@@ -14,9 +15,10 @@ class OutflowController extends Controller
      */
     public function index(Request $request)
     {
-        $outflow = new Outflow();
-        $outflow = $outflow->latest()->paginate(10);
-        return view('outflow.index',compact('outflow', $outflow));
+        $user = User::get();
+        $outflow = Outflow::get();
+        return view('outflow.index',compact('user','outflow'));
+        
     }
 
     /**
@@ -38,27 +40,16 @@ class OutflowController extends Controller
     public function store(Request $request)
     {   
         try {
-            $outflow = DB::table('outflows')
-                ->whereDate('created_at', today())
-                ->get();
-       
-
-        if($outflow == null){
-            $outflow = outflow::create([
-                'value'=> $request->amount,
+            $user = auth()->user();
+            outflow::create([
+                'value'=> $request->value,
+                'description'=>$request->description,
+                'user'=>$user->id,
             ]);
-        }else{
-            $outflow = outflow::updated([
-                'value'=> $request->amount,
-            ]);
-        }
-
-
-            return redirect()->route('outflow.index');
+            return redirect()->route('outflow.index')->with('Sucesso', 'Produto foi atualizado com sucesso.');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Desculpe, Houve um problema ao cadastrar produto.');
+            return redirect()->back()->with('error', "Desculpe, Aconteceu um problema ao atualizar produto. $th");
         }
-        
         
     }
     /**

@@ -4,6 +4,7 @@
 @section('content-header', 'Saídas de caixa')
 @section('content-actions')
 <a href="{{route('cart.index')}}" class="btn btn-primary">Abrir venda</a>
+<a href="{{route('outflow.create')}}" class="btn btn-danger">Realizar saída de caixa</a>
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -18,21 +19,24 @@
                     <th>Valor</th>
                     <th>Descrição</th>
                     <th>Dia de retirada</th>
-                    <th>Ações</th>
+                    <th>Usuário</th>
                 </tr>
             </thead>
             <tbody>
+                
                 @foreach ($outflow as $outflows)
+                
                 <tr>
                     <td>{{$loop->index}}</td>
                     <td>{{$outflows->value}}</td>
                     <td>{{$outflows->description}}</td>
                     <td>{{$outflows->created_at}}</td>
                     <td>
-                        <a href="{{ route('outflow.edit', $outflows) }}" class="btn btn-primary"><i
-                                class="fas fa-edit"></i></a>
-                        <button class="btn btn-danger btn-delete" data-url="{{route('outflow.destroy', $outflows)}}"><i
-                                class="fas fa-trash"></i></button>
+                        @foreach ($user as $users)
+                            @if ($user->id == $outflows->user)
+                                {{$user->name}}
+                            @endif
+                        @endforeach
                     </td>
                 </tr>
                 @endforeach

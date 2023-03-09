@@ -203,36 +203,6 @@ class Cart extends Component {
             }
         });
     }
-    handleClickSaida() {
-        Swal.fire({
-            title: "Valor retirado do caixa",
-            input: "text",
-            inputValue: 0,
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonText: "Confirmar",
-            showLoaderOnConfirm: true,
-            preConfirm: (amount) => {
-                return axios
-                    .post("/admin/outflow", {
-                        
-                        amount,
-                    })
-                    .then((res) => {
-                        this.loadCart();
-                        return res.data;
-                    })
-                    .catch((err) => {
-                        Swal.showValidationMessage(err.response.data.message);
-                    });
-            },
-            allowOutsideClick: () => !Swal.isLoading(),
-        }).then((result) => {
-            if (result.value) {
-                //
-            }
-        });
-    }
     render() {
         const { cart, products, customers, barcode } = this.state;
         return (
@@ -319,16 +289,7 @@ class Cart extends Component {
                                 Cancelar
                             </button>
                         </div>
-                        <div className="col">
-                            <button
-                                type="button"
-                                className="btn btn-danger btn-block"
-                                onClick={this.handleClickSaida}
-                                
-                            >
-                                Sangria
-                            </button>
-                        </div>
+                        
                         <div className="col">
                             <button
                                 type="button"

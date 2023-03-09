@@ -108,7 +108,9 @@ class ProductController extends Controller
     {
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->barcode = $request->barcode;
+        if (($product->barcode) != ($request->barcode)) {
+            $product->barcode = $request->barcode;
+        }
         $product->price = $request->price;
         $product->quantity = $request->quantity;
         $product->status = $request->status;
@@ -128,6 +130,7 @@ class ProductController extends Controller
             $image_path = $request->file('image')->store('products', 'public');
             // Save to Database
             $product->image = $image_path;
+            
         }
 
         if (!$product->save()) {
@@ -144,13 +147,14 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if ($product->image) {
-            Storage::delete($product->image);
+        if (!$product->delete()) {
+            return redirect()->back()->with('error', 'Desculpe, Aconteceu um problema ao deletar produto.');
+        }else{
+            if ($product->image) {
+                Storage::delete($product->image);
+            }
+            return redirect()->route('products.index')->with('Sucesso', 'Produto foi deletado com sucesso.');
         }
-        $product->delete();
-
-        return response()->json([
-            'success' => true
-        ]);
+        
     }
 }

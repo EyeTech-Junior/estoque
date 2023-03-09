@@ -24,6 +24,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('orders', OrderController::class);
     Route::get('/outflow/index', [OutflowController::class, 'index'])->name('outflow.index');
+    Route::get('outflow', [OutflowController::class, 'create'])->name('outflow.create');
     Route::post('/outflow', [OutflowController::class, 'store'])->name('outflow.store');
 
     Route::get('orders/list/{id}', [OrderController::class, 'orderList']);

@@ -29,6 +29,12 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
+                    <a href="{{ route('outflow.index') }}" class="nav-link {{ activeSegment('outflows') }}">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p>Controle de caixa</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="{{ route('orders.index') }}" class="nav-link {{ activeSegment('orders') }}">
                         <i class="nav-icon fas fa-cart-plus"></i>
                         <p>Históricos de vendas</p>

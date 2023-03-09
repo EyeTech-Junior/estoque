@@ -34,15 +34,13 @@
                         @enderror
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="avatar">Imagem</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="avatar" id="avatar">
-                            <label class="custom-file-label" for="avatar">Escolher imagem</label>
-                        </div>
-                        @error('avatar')
+                        <label for="phone">Telefone</label>
+                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                               placeholder="Telefone" value="{{ old('phone') }}">
+                        @error('phone')
                         <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
                 </div>
@@ -62,9 +60,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-8 form-group">
                         <label for="password">Senha</label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" id="password"
                                placeholder="Senha" value="{{ old('password') }}">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -72,16 +70,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="col-md-4 form-group">
-                        <label for="phone">Telefone</label>
-                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                               placeholder="Telefone" value="{{ old('phone') }}">
-                        @error('phone')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+                    
+                    
                     <div class="col-md-4 form-group">
                         <label for="first_name">CPF</label>
                         <input type="text" name="cpf" class="form-control @error('cpf') is-invalid @enderror"

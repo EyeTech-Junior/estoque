@@ -51,7 +51,18 @@ class CustomerController extends Controller
             $avatar_path = $request->file('avatar')->store('customers', 'public');
         }
         try {
-            
+
+            $customer = Customer::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'cpf' => $request->cpf,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'avatar' => $avatar_path,
+                'user_id' => $request->user()->id,
+            ]);
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -64,20 +75,10 @@ class CustomerController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        $customer = Customer::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'cpf' => $request->cpf,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'avatar' => $avatar_path,
-            'user_id' => $request->user()->id,
-        ]);
+        
 
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Desculpe\' houve um problema ao cadastrar usuário.');
+            return redirect()->back()->with('error', "Desculpe\' houve um problema ao cadastrar usuário.");
         }
 
         if (!$customer || !$user) {
@@ -119,7 +120,9 @@ class CustomerController extends Controller
         $customer->first_name = $request->first_name;
         $customer->last_name = $request->last_name;
         $customer->email = $request->email;
-        $customer->password = bcrypt($request->password);
+        if (!($request->password == null)) {
+            $customer->password = bcrypt($request->password);
+        }
         $customer->cpf = $request->cpf;
         $customer->phone = $request->phone;
         $customer->address = $request->address;
@@ -127,6 +130,9 @@ class CustomerController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
+        if (!($request->password == null)) {
+            $user->password = bcrypt($request->password);
+        }
         $user->password = bcrypt($request->password);
         $user->cpf = $request->cpf;
         $user->phone = $request->phone;
@@ -151,14 +157,19 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer, User $user)
     {
+        
+
+        
+
+
+       if (!$customer->delete()) {
+        return redirect()->back()->with('error', 'Desculpe, Aconteceu um problema ao deletar produto.');
+    }else{
         if ($customer->avatar) {
             Storage::delete($customer->avatar);
         }
-
-        $customer->delete();
         $user->password = bcrypt("n4anASDnvl###j1245");
-        return response()->json([
-           'success' => true
-       ]);
+        return redirect()->route('customers.index')->with('Sucesso', 'Produto foi deletado com sucesso.');
+    }
     }
 }

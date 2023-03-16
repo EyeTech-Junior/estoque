@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Outflow;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 class OutflowController extends Controller
 {
      /**
@@ -18,7 +17,6 @@ class OutflowController extends Controller
         $user = User::get();
         $outflow = Outflow::get();
         return view('outflow.index',compact('user','outflow'));
-        
     }
 
     /**
@@ -46,9 +44,9 @@ class OutflowController extends Controller
                 'description'=>$request->description,
                 'user'=>$user->id,
             ]);
-            return redirect()->route('outflow.index')->with('Sucesso', 'Produto foi atualizado com sucesso.');
+            return redirect()->route('outflow.index')->with('Sucesso', 'Saida foi atualizada com sucesso.');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', "Desculpe, Aconteceu um problema ao atualizar produto. $th");
+            return redirect()->back()->with('error', "Desculpe, Aconteceu um problema ao atualizar a saída de caixa. $th");
         }
         
     }

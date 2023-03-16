@@ -23,6 +23,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if (isset($outflow))
                 
                 @foreach ($outflow as $outflows)
                 
@@ -42,7 +43,20 @@
                 @endforeach
             </tbody>
         </table>
+        
         {{ $outflows->render() }}
+        @endif
+        
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+        
     </div>
 </div>
 @endsection

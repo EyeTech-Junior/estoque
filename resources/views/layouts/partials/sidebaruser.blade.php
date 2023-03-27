@@ -11,24 +11,6 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview">
-                    <a href="{{route('home')}}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('products.index') }}" class="nav-link {{ activeSegment('products') }}">
-                        <i class="nav-icon fas fa-th-large"></i>
-                        <p>Produtos</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('categories.index') }}" class="nav-link {{ activeSegment('products') }}">
-                        <i class="nav-icon fas fa-th-large"></i>
-                        <p>Categorias</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
                     <a href="{{ route('cart.index') }}" class="nav-link {{ activeSegment('cart') }}">
                         <i class="nav-icon fas fa-cart-plus"></i>
                         <p>Abrir venda</p>
@@ -44,18 +26,6 @@
                     <a href="{{ route('orders.index') }}" class="nav-link {{ activeSegment('orders') }}">
                         <i class="nav-icon fas fa-cart-plus"></i>
                         <p>Históricos de vendas</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('customers.index') }}" class="nav-link {{ activeSegment('customers') }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Usuários</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('settings.index') }}" class="nav-link {{ activeSegment('settings') }}">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>Configurações</p>
                     </a>
                 </li>
                 <li class="nav-item">

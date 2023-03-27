@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('cost', 8, 2);
             $table->decimal('price', 8, 2);
 
-            
+            $table->foreignId('category_id')->references('id')->on('categories');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

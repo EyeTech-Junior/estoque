@@ -90,7 +90,7 @@
                 text: "Realmente quer deletar este produto?",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Sim, eu quero',
+                confirmButtonText: 'Sim, eu quero!',
                 cancelButtonText: 'Não',
                 reverseButtons: true
                 }).then((result) => {

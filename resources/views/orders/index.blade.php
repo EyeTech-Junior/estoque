@@ -6,24 +6,89 @@
 @endsection
 
 @section('content')
+<div class="container-fluid">
+      <div class="row">
+        
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+                <h3>
+002
+                </h3>
+              <p>Vendas totais</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                  <h3>
+  
+                  </h3>
+                <p>Vendas mensais</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              
+            </div>
+          </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+                <h3></h3>
+              <p>Renda liquida total</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+                <h3></h3>
+              <p>Renda Bruta total</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+           
+          </div>
+        </div>
+        <!-- ./col -->
+  </div>
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <form action="{{route('orders.index')}}">
-                    <div class="row">
+                    <div class="row col-12">
+                        
                         <div class="col">
                             <input type="date" name="start_date" class="form-control" value="{{request('start_date')}}" />
                         </div>
                         <div class="col">
                             <input type="date" name="end_date" class="form-control" value="{{request('end_date')}}" />
                         </div>
+                        
+
                         <div class="col">
-                            <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+                            <button class="btn btn-outline-primary me-2" type="submit">Pesquisar</button>
+                            <button class="btn btn-outline-success me-2" onclick="window.print()">Gerar PDF</button>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-outline-success" onclick="window.print()">Gerar PDF</button>
-                        </div>  
+                          
                     </div>
                 </form>
             </div>

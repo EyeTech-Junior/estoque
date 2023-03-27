@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if (isset($outflow))
+
                 
                 @foreach ($outflow as $outflows)
                 
@@ -34,29 +34,16 @@
                     <td>{{$outflows->created_at}}</td>
                     <td>
                         @foreach ($user as $users)
-                            @if ($user->id == $outflows->user)
-                                {{$user->name}}
+
+                            @if (($users->id) == ($outflows->user))
+                                {{$users->first_name}}
                             @endif
                         @endforeach
                     </td>
                 </tr>
                 @endforeach
             </tbody>
-        </table>
-        
-        {{ $outflows->render() }}
-        @endif
-        
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-        
+        </table>      
     </div>
 </div>
 @endsection

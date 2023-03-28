@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="{{ route('categories.index') }}" class="nav-link {{ activeSegment('products') }}">
+                    <a href="{{ route('categories.index') }}" class="nav-link {{ activeSegment('categories') }}">
                         <i class="nav-icon fas fa-th-large"></i>
                         <p>Categorias</p>
                     </a>
@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="{{ route('outflow.index') }}" class="nav-link {{ activeSegment('outflows') }}">
+                    <a href="{{ route('outflow.index') }}" class="nav-link {{ activeSegment('outflow') }}">
                         <i class="nav-icon fas fa-cart-plus"></i>
                         <p>Controle de caixa</p>
                     </a>

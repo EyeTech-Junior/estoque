@@ -44,13 +44,13 @@ class CategoryController extends Controller
             ]);
 
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', "Desculpe\' houve um problema ao cadastrar usuário.");
+            return redirect()->back()->with('error', "Desculpe\' houve um problema ao cadastrar categoria.");
         }
 
         if (!$category) {
-            return redirect()->back()->with('error', 'Desculpe\' houve um problema ao cadastrar usuário.');
+            return redirect()->back()->with('error', 'Desculpe\' houve um problema ao cadastrar categoria.');
         }
-        return redirect()->route('categories.index')->with('success', 'Sucesso, usuário criado com sucesso.');
+        return redirect()->route('categories.index')->with('success', 'Sucesso, categoria criada com sucesso.');
     
     }
 
@@ -104,15 +104,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Category $category)
+    public function destroy(Category $category)
     {
-        if ($category->id == $id) {
             if (!$category->delete()) {
-                return redirect()->back()->with('error', 'Desculpe, Aconteceu um problema ao deletar produto.');
+                return redirect()->back()->with('error', 'Desculpe, Aconteceu um problema ao deletar categoria.');
                }else{
-                    return redirect()->route('customers.index')->with('Sucesso', 'Produto foi deletado com sucesso.');
+                    return redirect()->route('categories.index')->with('Sucesso', 'Categoria foi deletada com sucesso.');
                }
-        }
-       
     }
 }

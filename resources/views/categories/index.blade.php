@@ -30,12 +30,12 @@
                         <td>{{date( 'd/m/Y' , strtotime($category->created_at))}}</td>
                         <td>
 
-                            <form id="delete-form" action="{{ route('category.destroy', $category->id) }}" method="POST">
-                                <a href="{{ route('category.edit', $category) }}" class="btn btn-primary"><i
+                            <form id="delete-form" action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary"><i
                                     class="fas fa-edit"></i></a>
                                 @csrf
                                 @method('DELETE')
-                                <a class="btn btn-danger btn-delete" href="{{ route('category.destroy', $category->id) }}" 
+                                <a class="btn btn-danger btn-delete" href="{{ route('categories.destroy', $category->id) }}" 
                                     onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
                                     <i
                                     class="fas fa-trash"></i>
@@ -47,7 +47,7 @@
                 @endforeach
                 </tbody>
             </table>
-            {{ $customers->render() }}
+            
         </div>
     </div>
 @endsection

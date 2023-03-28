@@ -6,6 +6,7 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::get();
+        return view('products.create')->with('categories', $categories);
     }
 
     /**
@@ -61,7 +63,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'quantity' => $request->quantity,
             'status' => $request->status,
-            'category'=> $request->category,
+            'category_id'=> $request->category,
             'validity'=> $request->validity,
             'company'=> $request->company,
             'provider'=> $request->provider,

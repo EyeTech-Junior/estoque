@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
+
 
 class ProductController extends Controller
 {
@@ -96,7 +98,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit')->with('product', $product);
+        $categories = Category::get();
+        return view('products.edit')->with('product', $product)->with('categories',$categories);
     }
 
     /**
@@ -116,7 +119,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->quantity = $request->quantity;
         $product->status = $request->status;
-        $product->category = $request->category;
+        $product->category_id = $request->category;
         $product->validity=$request->validity;
         $product->company= $request->company;
         $product->provider= $request->provider;

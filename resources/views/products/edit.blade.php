@@ -93,11 +93,14 @@
             <div class="col-md-4 form-group">
                 <label for="category">Categoria</label>
                 <select name="category" class="form-control @error('category') is-invalid @enderror" id="category">
-                    <option value="4" {{ old('category',$product->category) === 4 ? 'selected' : ''}}>Outros</option>
-                    <option value="3" {{ old('category',$product->category) === 3 ? 'selected' : ''}}>Frio</option>
-                    <option value="2" {{ old('category',$product->category) === 2 ? 'selected' : ''}}>Quente</option>
-                    <option value="1" {{ old('category',$product->category) === 1 ? 'selected' : ''}}>Molhado</option>
-                    <option value="0" {{ old('category',$product->category) === 0 ? 'selected' : ''}}>Seco</option>
+                    @foreach ($categories as $category)
+                        @if ($product->category_id == $category->id)
+                            <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                        @else
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endif
+                        
+                    @endforeach
                 </select>
                 @error('category')
                 <span class="invalid-feedback" role="alert">

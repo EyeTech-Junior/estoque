@@ -14,12 +14,12 @@
           <div class="small-box bg-info">
             <div class="inner">
                 <h3>
-002
+                  002
                 </h3>
-              <p>Vendas totais</p>
+              <p>Vendas realizadas hoje</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fas fa-shopping-cart"></i>
             </div>
             
           </div>
@@ -29,12 +29,12 @@
             <div class="small-box bg-info">
               <div class="inner">
                   <h3>
-  
+                      022
                   </h3>
                 <p>Vendas mensais</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-shopping-cart"></i>
               </div>
               
             </div>
@@ -44,7 +44,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-                <h3></h3>
+                <h3>212</h3>
               <p>Renda liquida total</p>
             </div>
             <div class="icon">
@@ -58,7 +58,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-                <h3></h3>
+                <h3>21521</h3>
               <p>Renda Bruta total</p>
             </div>
             <div class="icon">

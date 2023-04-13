@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Usuários')
-@section('content-header', 'Lista de usuários')
+@section('title', 'Lista de Categorias')
+@section('content-header', 'Listagem de categorias')
 @section('content-actions')
-    <a href="{{route('categories.create')}}" class="btn btn-primary">Adcionar categoria</a>
+    <a href="{{route('categories.create')}}" class="btn btn-primary">Adicionar categoria</a>
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">

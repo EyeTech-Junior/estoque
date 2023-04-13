@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Exception;
+ 
+
+ 
 
 class CategoryController extends Controller
 {
@@ -71,9 +75,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        return view('categories.edit')->with('category',$category);
     }
 
     /**
@@ -83,12 +87,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Category $category)
+    public function update(Request $request, Category $category)
     {
-        if ($category->id == $id) {
+        
             $category->name = $request->name;
             $category->description = $request->description;
-        }
+        
         
 
         if (!$category->save()) {
@@ -106,10 +110,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        try{
             if (!$category->delete()) {
                 return redirect()->back()->with('error', 'Desculpe, Aconteceu um problema ao deletar categoria.');
                }else{
                     return redirect()->route('categories.index')->with('Sucesso', 'Categoria foi deletada com sucesso.');
                }
+        }catch (Exception $e) {
+            return redirect()->back()->with('error', 'Categoria não pode ser deletada, existem produtos nela.');
+        }
+            
     }
 }

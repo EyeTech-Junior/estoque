@@ -19,7 +19,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('barcode')->unique();
-            $table->string('category')->nullable();
             $table->string('validity')->nullable();
             $table->string('company')->nullable();
             $table->string('provider')->nullable();

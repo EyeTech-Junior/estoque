@@ -14,7 +14,7 @@ class Product extends Model
         'price',
         'quantity',
         'status',
-        'category',
+        'category_id',
         'validity',
         'company',
         'provider',

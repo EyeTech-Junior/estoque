@@ -48,6 +48,6 @@ exit /B
 setlocal & cd /d %~dp0
 if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
 
-cd C:\wampp\www\estoque
+cd C:\xampp\htdocs\estoque
 php artisan serve
 PAUSE

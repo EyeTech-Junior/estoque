@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Cadastrar Categoria')
-@section('content-header', 'Cadastrar Categoria')
+@section('title', 'Editar Categoria')
+@section('content-header', 'Editar Categoria')
 
 @section('content')
 
@@ -10,6 +10,7 @@
 
             <form action="{{ route('categories.update', $category) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col form-group">
                         <label for="name">Nome da Categoria</label>
@@ -27,14 +28,14 @@
                         <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"
                                id="description"
                                placeholder="Descrição" value="{{ old('description',$category->description) }}">
-                        @error('last_name')
+                        @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                 </div>
-                <button class="btn btn-success" type="submit">Cadastrar</button>  <input class="btn btn-primary" type="reset">
+                <button class="btn btn-success" type="submit">Atualizar</button>  <input class="btn btn-primary" type="reset">
             </form>
         </div>
     </div>

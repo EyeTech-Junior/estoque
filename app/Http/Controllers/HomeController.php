@@ -70,7 +70,7 @@ class HomeController extends Controller
 
 
         return view('home', ['labels'=> json_encode($labels),'data'=> json_encode($data)], [
-            'orders_count' => $orders->count(),
+            'orders_count' => $orders->where('id', '!=', 9999)->count(),
             'cost'=>$cost,
             'cost_today'=>$cost_today,
             'orders_today'=>$orders->where('created_at', '>=', date('Y-m-d').' 00:00:00')->count(),

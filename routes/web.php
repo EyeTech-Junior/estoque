@@ -25,11 +25,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('orders', OrderController::class);
-    /*
-    Route::get('/categories/index', [CategoryController::class, 'index'])->name('categories.index');
-    Route::get('categories', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-*/
 
     Route::get('/outflow/index', [OutflowController::class, 'index'])->name('outflow.index');
     Route::get('outflow', [OutflowController::class, 'create'])->name('outflow.create');

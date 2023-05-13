@@ -75,19 +75,11 @@
       <div class="col-sm-9 chart-container" style="position: relative; height:40vh; width:80vw">
         <canvas id="myChart" width="1500%" height="500%"></canvas></div>
 
-        <div class="card col-sm-3" style="width: 18rem;">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><h1>Itens mais vendidos</h1></li>
-            <li class="list-group-item">Produto 1</li>
-            <li class="list-group-item">Produto</li>
-            <li class="list-group-item">Produto</li>
-            <li class="list-group-item">Produto</li>
-            <li class="list-group-item">Produto</li>
-          </ul>
-        </div>
       <script>
+
+
         const DATA_COUNT = {!! $labels !!};
-        const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+        const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
         var ctx = document.getElementById("myChart").getContext("2d");
         var myChart = new Chart(ctx, {
             type: 'line',            
@@ -96,7 +88,8 @@
               datasets: [{
                 label: 'VENDAS',
                 data: {!! $data !!},
-                
+                borderColor: 'rgb(0, 192, 192)',
+                tension: 0.1
 
                 
               }]

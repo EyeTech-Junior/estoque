@@ -7,68 +7,6 @@
 
 @section('content')
 <div class="container-fluid">
-      <div class="row">
-        
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-info">
-            <div class="inner">
-                <h3>
-                  002
-                </h3>
-              <p>Vendas realizadas hoje</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-shopping-cart"></i>
-            </div>
-            
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                  <h3>
-                      022
-                  </h3>
-                <p>Vendas mensais</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
-              </div>
-              
-            </div>
-          </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-                <h3>212</h3>
-              <p>Renda liquida total</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-                <h3>21521</h3>
-              <p>Renda Bruta total</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-           
-          </div>
-        </div>
-        <!-- ./col -->
-  </div>
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -107,6 +45,9 @@
             </thead>
             <tbody>
                 @foreach ($orders as $order)
+                @if ($order->id == 9999)
+                    
+                @else
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{ config('settings.currency_symbol') }} {{$order->formattedTotal()}}</td>
@@ -127,6 +68,7 @@
                     <td><a href="orders/list/{{$order->id}}" class="btn btn-primary"><i
                         class="fas fa-edit"></i></a></td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
             <tfoot>

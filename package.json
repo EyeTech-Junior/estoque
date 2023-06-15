@@ -27,6 +27,7 @@
         "admin-lte": "^3.2.0",
         "chart.js": "^4.2.1",
         "dateformat": "^5.0.3",
+        "postcss": "^8.4.24",
         "sweetalert2": "^11.4.8"
     }
 }
